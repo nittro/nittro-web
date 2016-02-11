@@ -1,20 +1,26 @@
 #!/bin/bash
 
-set -e
-
 BASE_DIR=$(dirname $(dirname $(realpath $0)))
+COMPOSER_HOME="$BASE_DIR/temp/.composer"
+
+function deploy {
+    set -e
+
+    rm -rf temp/cache/*
+
+    git reset --hard
+    git pull
+    composer install
+    bower install
+    npm install
+    ./node_modules/.bin/grunt
+
+}
 
 cd "$BASE_DIR"
 
 cp -f www/.maintenance.php www/maintenance.php
 
-rm -rf "$BASE_DIR/temp/cache/*"
-
-git reset --hard
-git pull
-COMPOSER_HOME="$BASE_DIR/temp/.composer" composer install
-bower install
-npm install
-./node_modules/.bin/grunt
+deploy
 
 rm www/maintenance.php
