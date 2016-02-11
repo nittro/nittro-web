@@ -2,7 +2,7 @@
 
 BASE_DIR=$(dirname $(dirname $(realpath $0)))
 
-export COMPOSER_HOME="$BASE_DIR/temp/.composer"
+export COMPOSER_HOME="$BASE_DIR/.composer"
 
 function deploy {
     set -e
