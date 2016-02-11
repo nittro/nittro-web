@@ -3,6 +3,7 @@
 
 parameters:
     netteJsVersion: null
+    reposPath: "%appDir%/../repos"
 
 php:
     date.timezone: Europe/Prague
@@ -20,5 +21,5 @@ session:
 
 services:
     router: App\RouterFactory::createRouter
-    wiki: App\Libs\Wiki(wikiPath: "%appDir%/../repos/wiki")
+    wiki: App\Libs\Wiki(wikiPath: "%reposPath%/wiki")
     parsedown: App\Libs\Parsedown()

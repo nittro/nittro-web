@@ -25,7 +25,7 @@ class Wiki {
     }
 
     public function getTOC() {
-        $files = Finder::findFiles('*.md')->from($this->wikiPath);
+        $files = Finder::findFiles('*.md')->from($this->wikiPath)->exclude('.git');
         $pages = [];
         $offset = strlen($this->wikiPath);
 
