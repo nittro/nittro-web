@@ -17,7 +17,8 @@ class RouterFactory
 	{
 		$router = new RouteList;
 		$router[] = new Route('wiki/<path .+>', 'Wiki:default');
-		$router[] = new Route('<presenter>/<action>[/<id>]', 'Homepage:default');
+		$router[] = new Route('hook', 'Hook:default');
+		$router[] = new Route('<action>', 'Homepage:default');
 		return $router;
 	}
 
