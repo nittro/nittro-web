@@ -26,8 +26,6 @@ class HookPresenter extends BasePresenter {
             case 'release':
                 $reposPath = escapeshellarg($reposPath . '/nettejs.git');
                 exec('cd ' . $reposPath . ' && git fetch');
-                $latest = trim(`cd $reposPath && git tag --sort=-v:refname | head -n 1`);
-                file_put_contents($this->context->parameters['appDir'] . '/config/repo-version.neon', Neon::encode(['parameters' => ['netteJsVersion' => $latest]]));
                 break;
 
             case 'push':

@@ -12,7 +12,10 @@ class HomepagePresenter extends BasePresenter {
     public function renderDownload() {
         $this->title = 'Download';
         $this->tab = 'download';
-        $this->template->currentVersion = $this->context->parameters['netteJsVersion'];
+
+        $reposPath = escapeshellarg($this->context->parameters['reposPath'] . '/nettejs.git');
+        $latest = trim(`cd $reposPath && git tag --sort=-v:refname | head -n 1`);
+        $this->template->currentVersion = $latest;
 
     }
 
