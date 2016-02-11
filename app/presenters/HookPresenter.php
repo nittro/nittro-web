@@ -21,6 +21,7 @@ class HookPresenter extends BasePresenter {
         switch ($event) {
             case 'gollum':
                 exec('cd ' . escapeshellarg($reposPath . '/wiki') . ' && git pull');
+                echo "gollum";
                 break;
 
             case 'release':
@@ -28,11 +29,13 @@ class HookPresenter extends BasePresenter {
                 exec('cd ' . $reposPath . ' && git fetch');
                 $latest = trim(`cd $reposPath && git tag --sort=-v:refname | head -n 1`);
                 file_put_contents($this->context->parameters['appDir'] . '/config/repo-version.neon', Neon::encode(['parameters' => ['netteJsVersion' => $latest]]));
+                echo "release";
                 break;
 
             case 'push':
                 $path = $this->context->parameters['appDir'] . '/..';
                 exec('cd ' . escapeshellarg($path) . ' && git pull && composer install');
+                echo "push";
                 break;
         }
 
