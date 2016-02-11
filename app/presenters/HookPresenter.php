@@ -9,8 +9,6 @@
 namespace App\Presenters;
 
 
-use Nette\Neon\Neon;
-
 class HookPresenter extends BasePresenter {
 
     public function actionDefault() {
@@ -30,7 +28,6 @@ class HookPresenter extends BasePresenter {
 
             case 'push':
                 $path = $this->context->parameters['appDir'] . '/..';
-                exec('cd ' . escapeshellarg($path) . ' && git reset --hard && git pull');
                 exec(escapeshellarg($path . '/bin/deploy.sh'));
                 break;
         }
