@@ -16,7 +16,7 @@ class RouterFactory
 	public static function createRouter()
 	{
 		$router = new RouteList;
-		$router[] = new Route('wiki/<path .+>', 'Wiki:default');
+		$router[] = new Route('wiki[/<path .+>]', 'Wiki:default');
 		$router[] = new Route('hook', 'Hook:default');
 		$router[] = new Route('<action>', 'Homepage:default');
 		return $router;
