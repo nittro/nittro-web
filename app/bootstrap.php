@@ -16,10 +16,6 @@ $configurator->createRobotLoader()
 $configurator->addConfig(__DIR__ . '/config/config.neon');
 $configurator->addConfig(__DIR__ . '/config/config.local.neon');
 
-if (file_exists(__DIR__ . '/config/repo-version.neon')) {
-    $configurator->addConfig(__DIR__ . '/config/repo-version.neon');
-
-}
 
 $container = $configurator->createContainer();
 
