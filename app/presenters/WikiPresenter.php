@@ -32,8 +32,14 @@ class WikiPresenter extends BasePresenter {
 
         }
 
-        $this->template->toc = $this->wiki->getTOC();
+        if ($this->getHttpRequest()->getHeader('X-Wiki')) {
+            $this->redrawControl('wiki');
+            $this->template->toc = [];
 
+        } else {
+            $this->template->toc = $this->wiki->getTOC();
+
+        }
     }
 
     protected function createTemplate() {

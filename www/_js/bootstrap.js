@@ -27,7 +27,9 @@ _stack.push(function(Nette) {
             'page': 'Nette.Page.Service(@ajax, @transitions, @formLocator, @flashMessages)!',
             'transitions': 'Nette.Page.Transitions(300)',
             'formLocator': 'Nette.Forms.Locator(@flashMessages)',
-            'flashMessages': 'Nette.Widgets.FlashMessages(%flashes%)'
+            'flashMessages': 'Nette.Widgets.FlashMessages(%flashes%)',
+            'wiki': 'App.Wiki()!',
+            'tabs': 'App.Tabs()!'
         },
         factories: {
             formDialog: 'Nette.Widgets.FormDialog(@formLocator)'
