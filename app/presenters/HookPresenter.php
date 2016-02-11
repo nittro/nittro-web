@@ -16,6 +16,8 @@ class HookPresenter extends BasePresenter {
     public function actionDefault() {
         $reposPath = $this->context->parameters['reposPath'];
 
+        var_dump($this->context->parameters);
+
         $event = $this->getHttpRequest()->getHeader('X-GitHub-Event');
 
         switch ($event) {

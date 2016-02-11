@@ -4,6 +4,7 @@
 parameters:
     netteJsVersion: null
     reposPath: "%appDir%/../repos"
+    check1: hovno
 
 php:
     date.timezone: Europe/Prague
