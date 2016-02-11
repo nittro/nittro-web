@@ -16,14 +16,11 @@ class HookPresenter extends BasePresenter {
     public function actionDefault() {
         $reposPath = $this->context->parameters['reposPath'];
 
-        var_dump($this->context->parameters);
-
         $event = $this->getHttpRequest()->getHeader('X-GitHub-Event');
 
         switch ($event) {
             case 'gollum':
                 exec('cd ' . escapeshellarg($reposPath . '/wiki') . ' && git reset --hard && git pull', $output);
-                echo implode('', $output);
                 break;
 
             case 'release':
@@ -31,14 +28,12 @@ class HookPresenter extends BasePresenter {
                 exec('cd ' . $reposPath . ' && git fetch');
                 $latest = trim(`cd $reposPath && git tag --sort=-v:refname | head -n 1`);
                 file_put_contents($this->context->parameters['appDir'] . '/config/repo-version.neon', Neon::encode(['parameters' => ['netteJsVersion' => $latest]]));
-                echo "release";
                 break;
 
             case 'push':
                 $path = $this->context->parameters['appDir'] . '/..';
                 exec('cd ' . escapeshellarg($path) . ' && git reset --hard && git pull && composer install');
                 exec('cd ' . escapeshellarg($path . '/temp/cache') . ' && rm -rf ./*');
-                echo "push";
                 break;
         }
 
