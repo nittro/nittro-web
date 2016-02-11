@@ -12,7 +12,7 @@ rm -rf "$BASE_DIR/temp/cache/*"
 
 git reset --hard
 git pull
-composer install
+COMPOSER_HOME="$BASE_DIR/temp/.composer" composer install
 bower install
 npm install
 ./node_modules/.bin/grunt
