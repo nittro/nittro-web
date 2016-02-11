@@ -28,7 +28,7 @@ class HookPresenter extends BasePresenter {
 
             case 'push':
                 $path = $this->context->parameters['appDir'] . '/..';
-                exec(escapeshellarg($path . '/bin/deploy.sh'));
+                exec(escapeshellarg($path . '/bin/deploy.sh') . ' > ' . escapeshellarg($path . '/log/deploy.log') . ' 2>&1');
                 break;
         }
 
