@@ -20,8 +20,8 @@ class HookPresenter extends BasePresenter {
 
         switch ($event) {
             case 'gollum':
-                exec('cd ' . escapeshellarg($reposPath . '/wiki') . ' && git pull');
-                echo "gollum";
+                exec('cd ' . escapeshellarg($reposPath . '/wiki') . ' && git pull', $output);
+                echo implode('', $output);
                 break;
 
             case 'release':
