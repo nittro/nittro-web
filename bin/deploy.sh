@@ -6,7 +6,7 @@ BASE_DIR=$(dirname $(dirname $(realpath $0)))
 
 cd "$BASE_DIR"
 
-cp www/.maintenance.php www/maintenance.php
+cp -f www/.maintenance.php www/maintenance.php
 
 rm -rf "$BASE_DIR/temp/cache/*"
 
