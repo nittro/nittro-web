@@ -53,6 +53,11 @@ class Wiki {
     }
 
     public function renderPage($path) {
+        if (preg_match('#(^|/)\.\.?(/|$)#', $path)) {
+            throw new \Exception('Invalid path');
+
+        }
+
         $path = $this->wikiPath . '/' . $path . '.md';
 
         if (!file_exists($path)) {
