@@ -20,7 +20,7 @@ class HookPresenter extends BasePresenter {
 
         switch ($event) {
             case 'gollum':
-                exec('cd ' . escapeshellarg($reposPath . '/wiki') . ' && git pull', $output);
+                exec('cd ' . escapeshellarg($reposPath . '/wiki') . ' && git fetch && git reset --hard', $output);
                 echo implode('', $output);
                 break;
 
@@ -34,7 +34,7 @@ class HookPresenter extends BasePresenter {
 
             case 'push':
                 $path = $this->context->parameters['appDir'] . '/..';
-                exec('cd ' . escapeshellarg($path) . ' && git pull && composer install');
+                exec('cd ' . escapeshellarg($path) . ' && git fetch && git reset --hard && composer install');
                 echo "push";
                 break;
         }
