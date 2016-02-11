@@ -1,7 +1,8 @@
 #!/bin/bash
 
 BASE_DIR=$(dirname $(dirname $(realpath $0)))
-COMPOSER_HOME="$BASE_DIR/temp/.composer"
+
+export COMPOSER_HOME="$BASE_DIR/temp/.composer"
 
 function deploy {
     set -e
