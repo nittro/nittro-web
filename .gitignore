@@ -1,0 +1,4 @@
+app/config/config.local.neon
+app/config/repo-version.neon
+.idea/
+vendor/

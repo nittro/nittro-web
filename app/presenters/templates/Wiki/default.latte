@@ -1,0 +1,30 @@
+{define #toc}
+    <ul>
+        {foreach $items as $item => $value}{continueIf $item === 'Home'}
+            {if is_array($value)}
+            <li>
+                {if isSet($value['Home'])}
+                <a n:href="default path => $prefix . $item . '/Home'">{$item|wikiname}</a>
+                {else}
+                {$item|wikiname}
+                {/if}
+                {include #toc prefix => $prefix . $item . '/', items => $value}
+            </li>
+            {else}
+            <li><a n:href="default path => $prefix . $item">{$value}</a></li>
+            {/if}
+        {/foreach}
+    </ul>
+{/define}
+
+{block content}
+    <aside id="toc">
+        <h4><a n:href="default">NetteJS Wiki</a></h4>
+        {include #toc prefix => '', items => $toc}
+    </aside>
+
+    <h1 class="major">{$title}</h1>
+
+    {$contents|noescape}
+
+{/block}
