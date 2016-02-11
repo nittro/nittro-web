@@ -37,6 +37,7 @@ class HookPresenter extends BasePresenter {
             case 'push':
                 $path = $this->context->parameters['appDir'] . '/..';
                 exec('cd ' . escapeshellarg($path) . ' && git reset --hard && git pull && composer install');
+                exec('cd ' . escapeshellarg($path . '/temp/cache') . ' && rm -rf ./*');
                 echo "push";
                 break;
         }
