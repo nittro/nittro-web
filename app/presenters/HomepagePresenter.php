@@ -5,8 +5,12 @@ namespace App\Presenters;
 
 class HomepagePresenter extends BasePresenter {
 
-    public function renderDefault() {
+    public function renderDefault($tut = null) {
+        if ($tut) {
+            $this->postGet('this', ['tut' => null]);
+            $this->redrawControl('tutorial');
 
+        }
     }
 
     public function renderDownload() {
@@ -17,6 +21,15 @@ class HomepagePresenter extends BasePresenter {
         $latest = trim(`cd $reposPath && git tag --sort=-v:refname | head -n 1`);
         $this->template->currentVersion = $latest;
 
+    }
+
+    public function renderTutorial($step) {
+        $this->setView('tutorial' . (int) $step);
+
+        if ($this->isAjax()) {
+            $this->redrawControl('tutorial');
+
+        }
     }
 
 }

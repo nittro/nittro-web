@@ -62,7 +62,7 @@ module.exports = function (grunt) {
                         'assets/js/App/Wiki.js',
                         'assets/js/App/Tabs.js',
                         'assets/js/bootstrap.js',
-                        'assets/js/stack.js'
+                        'bower_components/NetteJS/src/js/stack.js'
                     ]
                 }
             }

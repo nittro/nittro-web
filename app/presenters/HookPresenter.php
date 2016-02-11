@@ -21,9 +21,8 @@ class HookPresenter extends BasePresenter {
                 exec('cd ' . escapeshellarg($reposPath . '/wiki') . ' && git reset --hard && git pull', $output);
                 break;
 
-            case 'release':
-                $reposPath = escapeshellarg($reposPath . '/nettejs.git');
-                exec('cd ' . $reposPath . ' && git fetch');
+            case 'create':
+                exec('cd ' . escapeshellarg($reposPath . '/nettejs.git') . ' && git fetch');
                 break;
 
             case 'push':

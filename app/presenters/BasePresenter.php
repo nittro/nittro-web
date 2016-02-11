@@ -34,6 +34,17 @@ class BasePresenter extends Presenter {
 
     }
 
+    public function postGet($destination, array $args = []) {
+        if ($this->isAjax()) {
+            $this->payload->postGet = true;
+            $this->payload->url = $this->link($destination, $args);
+
+        } else {
+            $this->redirect($destination, $args);
+
+        }
+    }
+
     protected function afterRender() {
         parent::afterRender();
 

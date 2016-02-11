@@ -1,4 +1,23 @@
-{block content}
-<h1 class="major">NetteJS</h1>
+{extends '@tutorial.latte'}
 
-<p>NetteJS is a client-side framework aiming to simplify everyday development of websites and webapps built on top of the <a href="http://nette.org">Nette framework</a>.</p>
+{block tutorial}
+    <ol>
+        <li>
+            <h3>Get NetteJS</h3>
+
+            <h4>Using Bower</h4>
+            <p>Run the following command in a terminal app:</p>
+            <pre><code>bower install nettejs</code></pre>
+
+            <h4>Download ZIP</h4>
+            <p>
+                Head over to the <a n:href="Homepage:download" class="ajax" data-transition="#snippet--content">Downloads</a> section
+                and download the latest ZIP archive. Unpack anywhere you fancy.
+            </p>
+        </li>
+    </ol>
+
+    <p>
+        <a n:href="tutorial step => 2" class="ajax" data-transition="#snippet--tutorial">Next &raquo;</a>
+    </p>
+{/block}

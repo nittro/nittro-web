@@ -1,0 +1,25 @@
+{extends '@tutorial.latte'}
+{block tutorial}
+    <ol start="3">
+        <li>
+            <h3>Ready to go!</h3>
+            <p>
+                Add the class <code>ajax</code> to any links and / or forms that you wish to load via AJAX.
+            </p>
+            <p>
+                Optionally add the
+                <code>transition-fade</code> or <code>transition-slide</code> class to any snippets you wish to animate
+                when they get updated by an AJAX request and add the <code>data-transition</code> attribute to links and
+                forms that update these snippets; the value of the <code>data-transition</code> attribute should be
+                a selector matching the snippet or snippets the link / form will update.
+            </p>
+
+            <p><small><em>Note: the <code>data-transition</code> selector can only be a single #id or .class; you can, however,
+                        combine multiple selectors using a comma.</em></small></p>
+        </li>
+    </ol>
+
+    <p>
+        <a n:href="this step => 2" class="ajax" data-transition="#snippet--tutorial">&laquo; Back</a>
+    </p>
+{/block}
