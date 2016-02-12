@@ -1,20 +1,20 @@
 {
-  "name": "NetteJS-web",
-  "homepage": "https://github.com/jahudka/nettejs-web",
-  "private": true,
-  "authors": [
-    "Dan Kadera <me@subsonic.cz>"
-  ],
-  "license": "MIT",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
-  "dependencies": {
-    "NetteJS": "nettejs#^1.0.58",
-    "nette-forms": "^2.3.7"
-  }
+    "name": "NetteJS-web",
+    "homepage": "https://github.com/jahudka/nettejs-web",
+    "private": true,
+    "authors": [
+        "Dan Kadera <me@subsonic.cz>"
+    ],
+    "license": "MIT",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ],
+    "dependencies": {
+        "nettejs": "~1.0.61",
+        "nette-forms": "~2.3.7"
+    }
 }
