@@ -3,7 +3,10 @@
 
     <h2>Latest</h2>
     {if $currentVersion}
-    <p><a href="https://github.com/jahudka/nettejs/archive/{$currentVersion}.zip">nettejs-{$currentVersion}.zip</a></p>
+    <p>
+        <a href="https://github.com/jahudka/nettejs/archive/{$currentVersion}.zip">nettejs-{$currentVersion}.zip</a>
+        <a href="https://travis-ci.org/jahudka/nettejs" class="build-icon"><img src="https://travis-ci.org/jahudka/nettejs.svg?tag={$currentVersion}" alt="Build Status"></a>
+    </p>
     {else}
     <p>Sorry, an error occured.</p>
     {/if}

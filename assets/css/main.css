@@ -3946,3 +3946,8 @@
         display: none;
     }
 }
+
+.build-icon {
+    border-bottom: none;
+    vertical-align: text-top;
+}
