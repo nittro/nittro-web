@@ -10,14 +10,14 @@ _context.invoke('App', function (DOM, Url) {
         DOM.addListener(document, 'click', this._handleClick.bind(this));
 
     }, {
-        _handleUpdate: function () {
+        _handleUpdate: function (evt) {
             var id = document.location.hash.replace(/^#/, ''),
                 elem;
 
             if (id && (elem = DOM.getById(id)) !== null) {
                 this._scrollTo(elem);
 
-            } else {
+            } else if (evt.data.snippets && 'snippet--content' in evt.data.snippets) {
                 this._animateScroll(window.pageYOffset, 0);
 
             }
