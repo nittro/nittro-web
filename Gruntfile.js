@@ -61,6 +61,7 @@ module.exports = function (grunt) {
                         'assets/js/highlight.pack.js',
                         'assets/js/App/Wiki.js',
                         'assets/js/App/Tabs.js',
+                        'assets/js/App/HashNav.js',
                         'assets/js/bootstrap.js',
                         'bower_components/NetteJS/src/js/stack.js'
                     ]

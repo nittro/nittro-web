@@ -27,7 +27,8 @@ _context.invoke(function(Nette) {
             'formLocator': 'Nette.Forms.Locator(@flashMessages)',
             'flashMessages': 'Nette.Widgets.FlashMessages(%flashes%)',
             'wiki': 'App.Wiki()!',
-            'tabs': 'App.Tabs()!'
+            'tabs': 'App.Tabs()!',
+            'hashNav': 'App.HashNav(margin: 30)!'
         },
         factories: {
             formDialog: 'Nette.Widgets.FormDialog(@formLocator)'

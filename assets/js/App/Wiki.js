@@ -1,4 +1,4 @@
-_context.invoke('App', function (DOM) {
+_context.invoke('App', function (DOM, Url) {
 
     var Wiki = _context.extend(function (ajax, page, router) {
         this._ = {
@@ -13,12 +13,22 @@ _context.invoke('App', function (DOM) {
 
     }, {
         _handleLink: function (evt) {
-            var link = DOM.closest(evt.target, 'a');
+            if (evt.defaultPrevented || evt.ctrlKey || evt.metaKey || evt.shiftKey) {
+                return;
+
+            }
+
+            var link = DOM.closest(evt.target, 'a'),
+                d;
 
             if (link && DOM.closest(evt.target, 'div', 'wiki')) {
-                link.setAttribute('data-transition', '#snippet--wiki');
-                this._.page.openLink(link, evt);
+                d = Url.from(link.href).compare(Url.fromCurrent());
 
+                if (d > Url.PART.HASH && d < Url.PART.PORT) {
+                    link.setAttribute('data-transition', '#snippet--wiki');
+                    this._.page.openLink(link, evt);
+
+                }
             }
         },
 
@@ -43,5 +53,6 @@ _context.invoke('App', function (DOM) {
     _context.register(Wiki, 'Wiki');
 
 }, {
-    DOM: 'Utils.DOM'
+    DOM: 'Utils.DOM',
+    Url: 'Utils.Url'
 });
