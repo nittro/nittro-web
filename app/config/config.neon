@@ -19,6 +19,6 @@ session:
 
 
 services:
-    router: App\RouterFactory::createRouter
+    router: App\RouterFactory::createRouter(%productionMode%)
     wiki: App\Libs\Wiki(wikiPath: "%reposPath%/wiki")
     parsedown: App\Libs\Parsedown()

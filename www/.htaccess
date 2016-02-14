@@ -13,8 +13,10 @@
 	# prevents files starting with dot to be viewed by browser
 	RewriteRule /\.|^\. - [F]
 
-	RewriteCond %{HTTP_HOST} ^nittro\.org
-	RewriteRule ^ https://www.nittro.org/$0 [L,QSA,R=301]
+	RewriteCond %{HTTP_HOST} ^nittro\.org$
+    RewriteCond %{HTTPS} off [OR]
+    RewriteCond %{HTTPS}:s on:(s)
+	RewriteRule ^ http%1://www.nittro.org/$0 [L,QSA,R=301]
 
     RewriteCond %{DOCUMENT_ROOT}/maintenance.php -f
 	RewriteRule ^ maintenance.php [L]
