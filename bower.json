@@ -14,7 +14,7 @@
         "tests"
     ],
     "dependencies": {
-        "nettejs": "~1.0.64",
+        "nettejs": "~1.0.65",
         "nette-forms": "~2.3.7"
     }
 }
