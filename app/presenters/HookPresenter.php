@@ -22,7 +22,7 @@ class HookPresenter extends BasePresenter {
                 break;
 
             case 'create':
-                exec('cd ' . escapeshellarg($reposPath . '/nettejs.git') . ' && git fetch');
+                exec('cd ' . escapeshellarg($reposPath . '/nittro.git') . ' && git fetch');
                 break;
 
             case 'push':

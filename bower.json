@@ -1,6 +1,6 @@
 {
-    "name": "NetteJS-web",
-    "homepage": "https://github.com/jahudka/nettejs-web",
+    "name": "nittro-web",
+    "homepage": "https://github.com/nittro/nittro-web",
     "private": true,
     "authors": [
         "Dan Kadera <me@subsonic.cz>"
@@ -14,7 +14,7 @@
         "tests"
     ],
     "dependencies": {
-        "nettejs": "~1.0.65",
+        "nittro": "~1.0.66",
         "nette-forms": "~2.3.7"
     }
 }

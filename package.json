@@ -1,7 +1,7 @@
 {
-  "name": "nettejs-web",
+  "name": "nittro-web",
   "license": "MIT",
-  "repository": "https://github.com/jahudka/nettejs-web",
+  "repository": "https://github.com/nittro/nittro-web",
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-cli": "^0.1.13",

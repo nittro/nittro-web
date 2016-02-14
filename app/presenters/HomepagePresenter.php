@@ -17,7 +17,7 @@ class HomepagePresenter extends BasePresenter {
         $this->title = 'Download';
         $this->tab = 'download';
 
-        $reposPath = escapeshellarg($this->context->parameters['reposPath'] . '/nettejs.git');
+        $reposPath = escapeshellarg($this->context->parameters['reposPath'] . '/nittro.git');
         $latest = trim(`cd $reposPath && git tag --sort=-v:refname | head -n 1`);
         $this->template->currentVersion = $latest;
 
