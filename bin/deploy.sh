@@ -11,8 +11,8 @@ cp -f www/.maintenance.php www/maintenance.php
 rm -rf temp/cache/*
 git reset --hard
 git pull
-COMPOSER_HOME="$BASE_DIR/.composer" composer install
-bower install
+COMPOSER_HOME="$BASE_DIR/.home/composer" composer install
+HOME="$BASE_DIR/.home" bower install
 npm install
 ./node_modules/.bin/grunt
 
