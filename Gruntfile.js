@@ -82,7 +82,8 @@ module.exports = function (grunt) {
                         'bower_components/nittro/src/css/nittro-transitions.less',
                         'assets/css/hljs/darkula.css',
                         'assets/css/font-awesome.min.css',
-                        'assets/css/main.css'
+                        'assets/css/main.css',
+                        'assets/css/custom.less'
                     ]
                 }
             }

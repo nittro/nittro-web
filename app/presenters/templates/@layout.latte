@@ -4,6 +4,22 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 
+        <link rel="shortcut icon" href="{$basePath}/favicon.ico" />
+
+        <link rel="icon" type="image/x-icon" sizes="16x16 32x32" href="{$basePath}/favicon.ico" />
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{$basePath}/_clip/icons/nittro-152.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{$basePath}/_clip/icons/nittro-144.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="120x120" href="{$basePath}/_clip/icons/nittro-120.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{$basePath}/_clip/icons/nittro-114.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="180x180" href="{$basePath}/_clip/icons/nittro-180.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{$basePath}/_clip/icons/nittro-72.png" />
+        <link rel="apple-touch-icon-precomposed" href="{$basePath}/_clip/icons/nittro-57.png" />
+        <link rel="icon" sizes="32x32" href="{$basePath}/_clip/icons/nittro-32.png" />
+        <meta name="msapplication-TileColor" content="#FFFFFF" />
+        <meta name="msapplication-TileImage" content="{$basePath}/_clip/icons/nittro-144.png" />
+        <link rel="icon" sizes="192x192" href="{$basePath}/_clip/icons/nittro-192.png" />
+
+
         <title>{ifset $title}{$title} | {/ifset}Nittro</title>
 
         <!--[if lte IE 8]><script src="{$baseUrl}/_js/html5shiv.js"></script><![endif]-->
@@ -18,7 +34,7 @@
     <body>
         <!-- Header -->
         <header id="header">
-            <a href="{link //Homepage:}" class="title">Nittro</a>
+            <a href="{link //Homepage:}" class="title" title="Nittro"><img src="{$basePath}/_clip/logo.svg" id="logo" alt="Nittro"></a>
             <nav id="menu">
                 <ul>
                     <li><a n:href="Homepage:" n:class="$tab === 'home' ? active, tab-home, ajax" data-transition="#snippet--content">Home</a></li>
@@ -30,7 +46,7 @@
         </header>
 
         <!-- Wrapper -->
-        <div id="wrapper">
+        <div id="wrapper" class="homepage">
 
             <!-- Main -->
             <section id="main" class="wrapper">

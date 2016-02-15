@@ -1,0 +1,70 @@
+#logo {
+    height: 80px;
+    margin: -35px 0;
+}
+
+@media (max-width: 736px) {
+    #logo {
+        height: 60px;
+        margin: -25px 0;
+    }
+}
+
+.homepage {
+    background: url("./../_clip/intro.svg") top right / 100% 100% no-repeat fixed;
+}
+
+.homepage p {
+    font-size: 1.25em;
+}
+
+@media screen and (max-width: 980px) {
+
+    .homepage p br {
+        display: none;
+    }
+
+}
+
+@media screen and (max-width: 736px) {
+
+    .homepage p {
+        font-size: 1em;
+    }
+
+}
+
+@media screen and (max-width: 1280px) {
+
+    .homepage {
+        background-attachment: scroll;
+    }
+
+}
+
+#toc {
+    position: relative;
+    z-index: 2;
+    float: right;
+    margin: 0 0 0 1em;
+    padding: 0.5em 0.65em;
+    background: #363357;
+    border: solid 1px rgba(255, 255, 255, 0.15);
+    border-radius: 0.25em;
+
+    ul {
+        margin-bottom: 0;
+    }
+}
+
+
+@media screen and (max-width: 1023px) {
+    #toc {
+        display: none;
+    }
+}
+
+.build-icon {
+    border-bottom: none;
+    vertical-align: text-top;
+}
