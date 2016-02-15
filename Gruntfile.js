@@ -91,8 +91,8 @@ module.exports = function (grunt) {
         copy: {
             assets: {
                 files: [
-                    { src: 'assets/css/ie*', dest: 'www/_css/', expand: true },
-                    { src: 'assets/js/html5shiv.js', dest: 'www/_js/' }
+                    { src: 'assets/css/ie*', dest: 'www/_css/', expand: true, flatten: true },
+                    { src: 'assets/js/html5shiv.js', dest: 'www/_js/', expand: true, flatten: true }
                 ]
             }
         }
