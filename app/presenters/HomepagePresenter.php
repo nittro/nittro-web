@@ -17,9 +17,17 @@ class HomepagePresenter extends BasePresenter {
         $this->title = 'Download';
         $this->tab = 'download';
 
-        $reposPath = escapeshellarg($this->context->parameters['reposPath'] . '/nittro.git');
-        $latest = trim(`cd $reposPath && git tag --sort=-v:refname | head -n 1`);
-        $this->template->currentVersion = $latest;
+        $reposPath = $this->context->parameters['reposPath'];
+        $packages = ['core', 'page', 'application', 'nittro'];
+        $versions = [];
+
+        foreach ($packages as $package) {
+            $repoPath = escapeshellarg($reposPath . '/' . $package . '.git');
+            $versions[$package] = trim(`cd $repoPath && git tag --sort=-v:refname | head -n 1`);
+
+        }
+
+        $this->template->versions = $versions;
 
     }
 

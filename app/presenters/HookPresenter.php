@@ -22,7 +22,15 @@ class HookPresenter extends BasePresenter {
                 break;
 
             case 'create':
-                exec('cd ' . escapeshellarg($reposPath . '/nittro.git') . ' && git fetch');
+                $payload = json_decode(file_get_contents('php://input'));
+                $repo = $payload->repository->name;
+
+                if (!in_array($repo, ['core', 'page', 'application', 'nittro'], true)) {
+                    $this->terminate();
+
+                }
+
+                exec('cd ' . escapeshellarg($reposPath . '/' . $repo . '.git') . ' && git fetch');
                 break;
 
             case 'push':

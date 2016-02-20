@@ -1,13 +1,59 @@
 {block content}
-    <h1 class="major">Download</h1>
+    <h1 class="major">Download Nittro</h1>
 
-    <h2>Latest</h2>
-    {if $currentVersion}
-    <p>
-        <a href="https://github.com/nittro/nittro/archive/{$currentVersion}.zip">nittro-{$currentVersion}.zip</a>
-        <a href="https://travis-ci.org/nittro/nittro" class="build-icon"><img src="https://travis-ci.org/nittro/nittro.svg?tag={$currentVersion}" alt="Build Status"></a>
-    </p>
-    {else}
-    <p>Sorry, an error occured.</p>
-    {/if}
+    <section class="wrapper">
+        <div class="inner">
+            <div class="features">
+                <section>
+                    <span class="icon major fa-university"></span>
+                    <h3>Full package <a href="https://travis-ci.org/nittro/nittro" class="build-icon"><img src="https://travis-ci.org/nittro/nittro.svg?tag={$versions['nittro']}" alt="Build Status"></a></h3>
+                    <p>
+                        Download: <a href="https://github.com/nittro/nittro/archive/{$versions['nittro']}.zip">nittro-{$versions['nittro']}.zip</a><br />
+                        Bower: <code>nittro</code>
+                    </p>
+                    <p>
+                        Contains all the other packages plus a few extras, like Dialogs
+                    </p>
+                </section>
+
+                <section>
+                    <span class="icon major fa-suitcase"></span>
+                    <h3>Nittro.Page <a href="https://travis-ci.org/nittro/page" class="build-icon"><img src="https://travis-ci.org/nittro/page.svg?tag={$versions['page']}" alt="Build Status"></a></h3>
+                    <p>
+                        Download: <a href="https://github.com/nittro/page/archive/{$versions['page']}.zip">page-{$versions['page']}.zip</a><br />
+                        Bower: <code>nittro-page</code>
+                    </p>
+                    <p>
+                        Contains everything you need to make the basics work: AJAX for links,
+                        page transitions, snippet management etc.
+                    </p>
+                </section>
+
+                <section>
+                    <span class="icon major fa-home"></span>
+                    <h3>Nittro.Application <a href="https://travis-ci.org/nittro/application" class="build-icon"><img src="https://travis-ci.org/nittro/application.svg?tag={$versions['application']}" alt="Build Status"></a></h3>
+                    <p>
+                        Download: <a href="https://github.com/nittro/application/archive/{$versions['application']}.zip">application-{$versions['application']}.zip</a><br />
+                        Bower: <code>nittro-application</code>
+                    </p>
+                    <p>
+                        Extends basic Nittro.Page package with Dependency Injection and forms support
+                    </p>
+                </section>
+
+                <section>
+                    <span class="icon major fa-code"></span>
+                    <h3>Nittro.Core <a href="https://travis-ci.org/nittro/core" class="build-icon"><img src="https://travis-ci.org/nittro/core.svg?tag={$versions['core']}" alt="Build Status"></a></h3>
+                    <p>
+                        Download: <a href="https://github.com/nittro/core/archive/{$versions['core']}.zip">core-{$versions['core']}.zip</a><br />
+                        Bower: <code>nittro-core</code>
+                    </p>
+                    <p>
+                        Contains core Nittro utilities, like _context, Utils.HashMap and more
+                    </p>
+                </section>
+            </div>
+        </div>
+    </section>
+
 {/block}

@@ -15,7 +15,10 @@ _context.invoke('App', function (DOM) {
             }
 
             var menu = DOM.getById('menu'),
+                wrapper = DOM.getById('wrapper'),
                 current = menu.getElementsByClassName('active');
+
+            DOM.toggleClass(wrapper, 'homepage', evt.data.tab === 'home');
 
             if (current && current.length) {
                 current.item(0).classList.remove('active');
