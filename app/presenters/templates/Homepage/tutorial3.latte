@@ -4,18 +4,14 @@
         <li>
             <h3>Ready to go!</h3>
             <p>
-                Add the class <code>ajax</code> to any links and / or forms that you wish to load via AJAX.
+                All local links will now load using AJAX, except for links explicitly disabled by adding the
+                <code>noajax</code> class.
             </p>
             <p>
-                Optionally add the
+                Add the <code>transition-auto</code> along with either
                 <code>transition-fade</code> or <code>transition-slide</code> class to any snippets you wish to animate
-                when they get updated by an AJAX request and add the <code>data-transition</code> attribute to links and
-                forms that update these snippets; the value of the <code>data-transition</code> attribute should be
-                a selector matching the snippet or snippets the link / form will update.
+                on page update.
             </p>
-
-            <p><small><em>Note: the <code>data-transition</code> selector can only be a single #id or .class; you can, however,
-                        combine multiple selectors using a comma.</em></small></p>
         </li>
     </ol>
 
