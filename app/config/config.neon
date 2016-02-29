@@ -27,4 +27,6 @@ services:
     wiki: App\Libs\Wiki(wikiPath: "%reposPath%/wiki")
     parsedown: App\Libs\Parsedown()
     tracy.logger:
-        class: Beetle\Tracy\Logger("%appDir%/../log", %beetle%)
+        class: Tracy\ILogger
+        factory: Beetle\Tracy\Logger
+        arguments: ["%appDir%/../log", %beetle%]
