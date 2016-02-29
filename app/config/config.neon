@@ -3,6 +3,10 @@
 
 parameters:
     reposPath: "%appDir%/../repos"
+    beetle:
+        apiUrl: https://bugs.monokl.me
+        apiToken: KdVEUXzoBIuzUQxReAPr2ZvINkvwEguDfVDZLc1Kx6uUIbHFMh3xrq8mOXBJBBH1h8jNgbdF
+        projectId: 4
 
 php:
     date.timezone: Europe/Prague
@@ -22,3 +26,6 @@ services:
     router: App\RouterFactory::createRouter(%productionMode%)
     wiki: App\Libs\Wiki(wikiPath: "%reposPath%/wiki")
     parsedown: App\Libs\Parsedown()
+    tracy.logger:
+        autowired: no
+        class: Beetle\Tracy\Logger("%appDir%/../log", %beetle%)
