@@ -32,8 +32,9 @@ class Logger extends \Tracy\Logger {
         $class = get_class($message);
         $short = preg_replace('/^(?:.*?\\\\|)([^\\\\]+?)(?:Exception)?$/', '$1', $class);
         $short = preg_replace('/(?<!^)([A-Z])/', ' $1', $short);
+
         $title = sprintf('%s: %s', $short, $message->getMessage());
-        $description = sprintf("**%s(%d)**\n\n**Trace:**\n```\n%s\n```", get_class($message), $message->getCode(), $message->getTraceAsString());
+        $description = sprintf("**%s(%d)**\n\n**Trace:**\n```\n%s\n```", $class, $message->getCode(), $message->getTraceAsString());
         $dumpPath = $this->getExceptionFile($message);
 
         try {
