@@ -1,6 +1,4 @@
 app/config/config.local.neon
-.idea/
 vendor/
 bower_components/
 node_modules/
-assets/js/netteForms.js

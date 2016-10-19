@@ -14,7 +14,6 @@
         "tests"
     ],
     "dependencies": {
-        "nittro": "~1.0.66",
-        "nette-forms": "~2.3.7"
+        "nittro": "master"
     }
 }

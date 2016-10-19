@@ -5,17 +5,17 @@
             <h3>Ready to go!</h3>
             <p>
                 All local links will now load using AJAX, except for links explicitly disabled by adding the
-                <code>noajax</code> class.
+                <code>data-ajax="false"</code> attribute.
             </p>
             <p>
-                Add the <code>transition-auto</code> along with either
-                <code>transition-fade</code> or <code>transition-slide</code> class to any snippets you wish to animate
+                Add the <code>nittro-transition-auto</code> class along with either
+                <code>nittro-transition-fade</code> or <code>nittro-transition-slide</code> to any snippets you wish to animate
                 on page update.
             </p>
         </li>
     </ol>
 
     <p>
-        <a n:href="this step => 2" class="ajax" data-transition="#snippet--tutorial">&laquo; Back</a>
+        <a n:href="this step => 2" data-transition="#snippet--tutorial">&laquo; Back</a>
     </p>
 {/block}

@@ -3,16 +3,16 @@
 {block tutorial}
     <ol start="2">
         <li>
-            <h3>Link Nittro.Page to your app</h3>
-            <p>Put the files <code>dist/css/nittro-page.min.css</code> and <code>dist/js/nittro-page.full.min.js</code> somewhere in your document root.</p>
+            <h3>Link Nittro to your app</h3>
+            <p>Put the files <code>nittro.min.css</code> and <code>nittro.min.js</code> somewhere in your document root.</p>
             <p>Add the following code snippet to the <code>&lt;head&gt;</code> section of your layout template:</p>
-            <pre><code class="language-html">&lt;link rel="stylesheet" type="text/css" href="path/to/nittro-page.min.css" /&gt;
-&lt;script type="text/javascript" src="path/to/nittro-page.full.min.js" async defer&gt;&lt;/script&gt;</code></pre>
+            <pre><code class="language-html">&lt;link rel="stylesheet" type="text/css" href="path/to/nittro.min.css" /&gt;
+&lt;script type="text/javascript" src="path/to/nittro.min.js" async defer&gt;&lt;/script&gt;</code></pre>
         </li>
     </ol>
 
     <p>
-        <a n:href="default tut => 1" class="ajax" data-transition="#snippet--tutorial">&laquo; Back</a> |
-        <a n:href="this step => 3" class="ajax" data-transition="#snippet--tutorial">Next &raquo;</a>
+        <a n:href="default tut => 1" data-transition="#snippet--tutorial">&laquo; Back</a> |
+        <a n:href="this step => 3" data-transition="#snippet--tutorial">Next &raquo;</a>
     </p>
 {/block}

@@ -21,7 +21,7 @@ _context.invoke('App', function (DOM, Url) {
             var link = DOM.closest(evt.target, 'a'),
                 d;
 
-            if (link && DOM.closest(evt.target, 'div', 'wiki')) {
+            if (link && !link.target && DOM.closest(evt.target, 'div', 'wiki')) {
                 d = Url.from(link.href).compare(Url.fromCurrent());
 
                 if (d > Url.PART.HASH && d < Url.PART.PORT) {

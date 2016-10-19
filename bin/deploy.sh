@@ -14,6 +14,6 @@ HOME="$BASE_DIR/.home" git pull
 HOME="$BASE_DIR/.home" composer install
 HOME="$BASE_DIR/.home" bower install
 HOME="$BASE_DIR/.home" npm install
-HOME="$BASE_DIR/.home" ./node_modules/.bin/grunt
+HOME="$BASE_DIR/.home" ./node_modules/.bin/gulp
 
 rm www/maintenance.php

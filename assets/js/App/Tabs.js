@@ -5,27 +5,50 @@ _context.invoke('App', function (DOM) {
             page: page
         };
 
-        this._.page.on('update', this._handleUpdate.bind(this));
+        this._.page.on('transaction-created', function(evt) {
+            evt.data.transaction.add('tabs', this);
+        }.bind(this));
 
     }, {
-        _handleUpdate: function (evt) {
-            if (!('tab' in evt.data)) {
-                return;
+        init: function(transaction, context) {
+            return {
+                tab: null
+            };
+        },
 
+        dispatch: function(transaction, data) {
+            transaction.then(this._handleSuccess.bind(this, data));
+        },
+
+        abort: function() {},
+
+        handleAction: function(transaction, agent, action, actionData, data) {
+            if (agent === 'ajax' && action === 'response') {
+                var payload = actionData.getPayload();
+
+                if ('tab' in payload) {
+                    data.tab = payload.tab;
+                }
+            }
+        },
+
+        _handleSuccess: function (data) {
+            if (!data.tab) {
+                return;
             }
 
             var menu = DOM.getById('menu'),
                 wrapper = DOM.getById('wrapper'),
                 current = menu.getElementsByClassName('active');
 
-            DOM.toggleClass(wrapper, 'homepage', evt.data.tab === 'home');
+            DOM.toggleClass(wrapper, 'homepage', data.tab === 'home');
 
             if (current && current.length) {
                 current.item(0).classList.remove('active');
 
             }
 
-            current = menu.getElementsByClassName('tab-' + evt.data.tab);
+            current = menu.getElementsByClassName('tab-' + data.tab);
 
             if (current && current.length) {
                 current.item(0).classList.add('active');

@@ -1,12 +1,12 @@
 _context.invoke('App', function (DOM, Url) {
 
-    var HashNav = _context.extend(function(page, margin) {
+    var HashNav = _context.extend(function(snippetManager, margin) {
         this._ = {
-            page: page,
+            snippetManager: snippetManager,
             margin: margin
         };
 
-        this._.page.on('update', this._handleUpdate.bind(this));
+        this._.snippetManager.on('after-update', this._handleUpdate.bind(this));
         DOM.addListener(document, 'click', this._handleClick.bind(this));
 
     }, {
@@ -17,7 +17,7 @@ _context.invoke('App', function (DOM, Url) {
             if (id && (elem = DOM.getById(id)) !== null) {
                 this._scrollTo(elem);
 
-            } else if (evt.data.snippets && 'snippet--content' in evt.data.snippets) {
+            } else if (evt.data.update && 'snippet--content' in evt.data.update) {
                 this._animateScroll(window.pageYOffset, 0);
 
             }

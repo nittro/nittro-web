@@ -1,8 +1,8 @@
 {
-	"name": "nette/web-project",
-	"description": "Nette: Standard Web Project",
+	"name": "nittro/web",
+	"description": "Nittro Website",
 	"type": "project",
-	"license": ["MIT", "BSD-3-Clause", "GPL-2.0", "GPL-3.0"],
+	"license": "MIT",
 	"require": {
 		"php": ">= 5.4.0",
 		"nette/application": "^2.3.6",
@@ -20,8 +20,5 @@
 		"latte/latte": "^2.3",
 		"tracy/tracy": "^2.3",
         "erusev/parsedown": "^1.6"
-	},
-	"require-dev": {
-		"nette/tester": "^1.6"
 	}
 }

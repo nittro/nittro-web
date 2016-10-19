@@ -4,14 +4,14 @@
             {if is_array($value)}
             <li>
                 {if isSet($value['Home'])}
-                <a n:href="default path => $prefix . $item . '/Home'" class="ajax" data-transition="#snippet--wiki">{$item|wikiname}</a>
+                <a n:href="default path => $prefix . $item . '/Home'" data-transition="#snippet--wiki">{$item|wikiname}</a>
                 {else}
                 {$item|wikiname}
                 {/if}
                 {include #toc prefix => $prefix . $item . '/', items => $value}
             </li>
             {else}
-            <li><a n:href="default path => $prefix . $item" class="ajax" data-transition="#snippet--wiki">{$value}</a></li>
+            <li><a n:href="default path => $prefix . $item" data-transition="#snippet--wiki">{$value}</a></li>
             {/if}
         {/foreach}
     </ul>
@@ -19,11 +19,11 @@
 
 {block content}
     <aside id="toc">
-        <h4><a n:href="default" class="ajax" data-transition="#snippet--wiki">Nittro Wiki</a></h4>
+        <h4><a n:href="default" data-transition="#snippet--wiki">Nittro Wiki</a></h4>
         {include #toc prefix => '', items => $toc}
     </aside>
 
-    <div class="wiki transition-fade" n:snippet="wiki">
+    <div class="wiki nittro-transition-fade" n:snippet="wiki">
         <h1 class="major">{$title}</h1>
         {$contents|noescape}
     </div>
