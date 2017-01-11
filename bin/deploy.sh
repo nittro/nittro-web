@@ -6,7 +6,7 @@ set -e
 
 cd "$BASE_DIR"
 
-cp -f www/.maintenance.php www/maintenance.php
+cp -f public/.maintenance.php public/maintenance.php
 
 rm -rf temp/cache/*
 HOME="$BASE_DIR/.home" git reset --hard
@@ -16,4 +16,4 @@ HOME="$BASE_DIR/.home" bower install
 HOME="$BASE_DIR/.home" npm install
 HOME="$BASE_DIR/.home" ./node_modules/.bin/gulp
 
-rm www/maintenance.php
+rm public/maintenance.php

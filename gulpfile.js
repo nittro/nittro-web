@@ -30,7 +30,8 @@ var builder = new nittro.Builder({
         dialogs: true,
         confirm: true,
         dropzone: true,
-        paginator: true
+        paginator: true,
+        checklist: true
     },
     libraries: {
         js: [
@@ -56,11 +57,11 @@ var builder = new nittro.Builder({
 gulp.task('js-main', function() {
     return nittro('js', builder)
         .pipe(concat('site.min.js'))
-        /*.pipe(uglify({
+        .pipe(uglify({
             mangle: false,
             compress: true
-        }))*/
-        .pipe(gulp.dest('www/_js/'));
+        }))
+        .pipe(gulp.dest('public/_js/'));
 });
 
 gulp.task('css-main', function() {
@@ -69,17 +70,17 @@ gulp.task('css-main', function() {
         .pipe(less({
             compress: true
         }))
-        .pipe(gulp.dest('www/_css/'));
+        .pipe(gulp.dest('public/_css/'));
 });
 
 gulp.task('js-assets', function() {
     return gulp.src(['assets/js/html5shiv.js'])
-        .pipe(gulp.dest('www/_js/'));
+        .pipe(gulp.dest('public/_js/'));
 });
 
 gulp.task('css-assets', function() {
     return gulp.src(['assets/css/ie8.css', 'assets/css/ie9.css'])
-        .pipe(gulp.dest('www/_css/'));
+        .pipe(gulp.dest('public/_css/'));
 });
 
 gulp.task('default', ['js-main', 'css-main', 'js-assets', 'css-assets']);

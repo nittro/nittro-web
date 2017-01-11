@@ -1,19 +1,20 @@
 {
-    "name": "nittro-web",
-    "homepage": "https://github.com/nittro/nittro-web",
-    "private": true,
-    "authors": [
-        "Dan Kadera <me@subsonic.cz>"
-    ],
-    "license": "MIT",
-    "ignore": [
-        "**/.*",
-        "node_modules",
-        "bower_components",
-        "test",
-        "tests"
-    ],
-    "dependencies": {
-        "nittro": "master"
-    }
+  "name": "nittro-web",
+  "homepage": "https://github.com/nittro/nittro-web",
+  "private": true,
+  "authors": [
+    "Dan Kadera <me@subsonic.cz>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "nittro": "master",
+    "nittro-extras-checklist": "master"
+  }
 }
