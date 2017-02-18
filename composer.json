@@ -21,7 +21,7 @@
 		"tracy/tracy": "^2.3",
         "erusev/parsedown": "^1.6",
 		"symfony/process": "^3.2",
-		"nittro/nette-bridges": "^2.0.0-rc.2"
+		"nittro/nette-bridges": "^2.0.0-rc.3"
 	},
     "minimum-stability": "RC",
     "prefer-stable": true

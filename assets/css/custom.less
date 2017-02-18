@@ -122,3 +122,43 @@ input[type="file"] {
         opacity: 1;
     }
 }
+
+.nittro-flash {
+    border-radius: 3px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    color: #fff;
+
+    &.nittro-flash-info {
+        background: #8897dd;
+
+        &:before {
+            border-color: #8897dd;
+        }
+    }
+
+    &.nittro-flash-warning {
+        background: #d70;
+
+        &:before {
+            border-color: #d70;
+        }
+    }
+
+    &.nittro-flash-error {
+        background: #f20;
+
+        &:before {
+            border-color: #f20;
+        }
+    }
+}
+
+.nittro-flash-global-holder {
+    .nittro-flash {
+        padding: 6px 2vw;
+
+        &:first-child {
+            border-radius: 0 0 3px 3px;
+        }
+    }
+}

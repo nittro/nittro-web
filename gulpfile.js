@@ -35,9 +35,8 @@ var builder = new nittro.Builder({
     },
     libraries: {
         js: [
-            'assets/js/App/Wiki.js',
-            'assets/js/App/Tabs.js',
-            'assets/js/App/HashNav.js'
+            'assets/js/App/FormRules.js',
+            'assets/js/App/Tabs.js'
         ],
         css: [
             'assets/css/main.css',
@@ -46,9 +45,7 @@ var builder = new nittro.Builder({
     },
     bootstrap: {
         services: {
-            'wiki': 'App.Wiki()!',
-            'tabs': 'App.Tabs()!',
-            'hashNav': 'App.HashNav(margin: 30)!'
+            'tabs': 'App.Tabs()!'
         }
     },
     stack: true

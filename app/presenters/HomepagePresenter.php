@@ -4,6 +4,7 @@ namespace App\Presenters;
 
 
 use App\Libs\Builder;
+use App\Libs\FormRules;
 use Nette\Application\Responses\FileResponse;
 use Nette\Application\UI\Form;
 use Nette\Neon\Neon;
@@ -30,6 +31,7 @@ class HomepagePresenter extends BasePresenter {
     public function renderDownload() {
         $this->title = 'Download';
         $this->tab = 'download';
+        $this->template->dependencies = $this->builder->getDependencies();
     }
 
     public function renderTutorial($step) {
@@ -57,8 +59,14 @@ class HomepagePresenter extends BasePresenter {
         $form = new Form();
 
         $vendor = $form->addContainer('vendor');
-        $vendor->addMultiUpload('js', 'JavaScripts:');
-        $vendor->addMultiUpload('css', 'Stylesheets:');
+
+        $vendor->addMultiUpload('js', 'JavaScripts:')
+            ->addCondition(Form::FILLED)
+            ->addRule(Form::MIME_TYPE, 'Only JavaScript files are allowed', 'text/javascript,application/javascript');
+
+        $vendor->addMultiUpload('css', 'Stylesheets:')
+            ->addCondition(Form::FILLED)
+            ->addRule(Form::MIME_TYPE, 'Only CSS and LESS files are allowed', 'text/css,text/less');
 
         $form->addCheckboxList('base', 'Base packages:', [
             'core' => 'Core',
@@ -83,14 +91,23 @@ class HomepagePresenter extends BasePresenter {
         ]);
 
         $libraries = $form->addContainer('libraries');
-        $libraries->addMultiUpload('js', 'JavaScripts:');
-        $libraries->addMultiUpload('css', 'Stylesheets:');
+
+        $libraries->addMultiUpload('js', 'JavaScripts:')
+            ->addCondition(Form::FILLED)
+            ->addRule(Form::MIME_TYPE, 'Only JavaScript files are allowed', 'text/javascript,application/javascript');
+
+        $libraries->addMultiUpload('css', 'Stylesheets:')
+            ->addCondition(Form::FILLED)
+            ->addRule(Form::MIME_TYPE, 'Only CSS and LESS files are allowed', 'text/css,text/less');
 
         $form->addRadioList('bootstrap', 'Bootstrap:', [
-            'auto' => 'Generate automatically',
-            'custom' => 'Upload custom',
-            'none' => 'None',
-        ]);
+                'auto' => 'Generate automatically',
+                'custom' => 'Upload custom',
+                'none' => 'None',
+            ])
+            ->setRequired()
+            ->addConditionOn($form['base'], FormRules::DOES_NOT_CONTAIN, 'di')
+            ->addRule(Form::NOT_EQUAL, 'You must include the DI Base package to use an auto-generated bootstrap', 'auto');
 
         $form->addTextArea('bootstrap_options', 'Bootstrap options:');
 

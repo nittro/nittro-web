@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7c2441868153cb4d44dc5ef72d3d08f3",
-    "content-hash": "4393aec5b37b69e5a836450981142388",
+    "hash": "218ad17778fa16049089c1267697755c",
+    "content-hash": "33dedd61a5dd5d7df50549cb06b9cd00",
     "packages": [
         {
             "name": "erusev/parsedown",
@@ -1077,16 +1077,16 @@
         },
         {
             "name": "nittro/nette-bridges",
-            "version": "v2.0.0-rc.2",
+            "version": "v2.0.0-rc.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nittro/nette-bridges.git",
-                "reference": "014955288b3a667926bad6320c0a6d61cd4e8d48"
+                "reference": "2801417e9fccec44401c11f2853df9fbd70ad18b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nittro/nette-bridges/zipball/014955288b3a667926bad6320c0a6d61cd4e8d48",
-                "reference": "014955288b3a667926bad6320c0a6d61cd4e8d48",
+                "url": "https://api.github.com/repos/nittro/nette-bridges/zipball/2801417e9fccec44401c11f2853df9fbd70ad18b",
+                "reference": "2801417e9fccec44401c11f2853df9fbd70ad18b",
                 "shasum": ""
             },
             "require-dev": {
@@ -1111,7 +1111,7 @@
             ],
             "description": "Nittro PHP bridges",
             "homepage": "https://www.nittro.org/",
-            "time": "2017-02-09 12:24:28"
+            "time": "2017-02-18 20:41:47"
         },
         {
             "name": "symfony/process",

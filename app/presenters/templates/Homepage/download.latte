@@ -1,139 +1,138 @@
 {block content}
     <h1 class="major">Download Nittro</h1>
 
-    <section class="wrapper">
-        <div class="inner">
+    <section>
+        <h2>Option 1: Pick a prebuilt package</h2>
+
+        <div class="features">
             <section>
-                <h2>Option 1: Pick a prebuilt package</h2>
-
-                <div class="features">
-                    <section>
-                        <span class="icon major fa-code"></span>
-                        <h3>Essentials</h3>
-                        <p>
-                            Download: <a href="#">nittro-essentials-2.0.0.zip</a><br />
-                            Bower: <code>nittro-essentials</code>
-                        </p>
-                        <p>
-                            Contains all Base packages except Routing, plus Dialogs and Confirm
-                        </p>
-                    </section>
-
-                    <section>
-                        <span class="icon major fa-university"></span>
-                        <h3>Full</h3>
-                        <p>
-                            Download: <a href="#">nittro-full-2.0.0.zip</a><br />
-                            Bower: <code>nittro-full</code>
-                        </p>
-                        <p>
-                            Contains all Base and Extras packages
-                        </p>
-                    </section>
-                </div>
+                <span class="icon major fa-code"></span>
+                <h3>Essentials</h3>
+                <p>
+                    Download: <a href="#">nittro-essentials-2.0.0.zip</a><br />
+                    Bower: <code>nittro-essentials</code>
+                </p>
+                <p>
+                    Contains all Base packages except Routing, plus Dialogs and Confirm
+                </p>
             </section>
 
             <section>
-                <h2>Option 2: Build a custom package</h2>
-
-                <form n:name="builderForm" data-ajax="false">
-                    <ul n:formErrors></ul>
-
-                    <hr />
-
-                    <div class="row">
-                        <label n:name="vendor-js" class="3u 12u$(small)">Vendor JS:</label>
-                        <div class="9u$ 12u$(small)">
-                            <input n:name="vendor-js" />
-                        </div>
-                        <label n:name="vendor-css" class="3u 12u$(small)">Vendor CSS:</label>
-                        <div class="9u$ 12u$(small)">
-                            <input n:name="vendor-css" />
-                        </div>
-                    </div>
-
-                    <hr />
-
-                    <div class="row">
-                        <div class="6u 12u$(small)">
-                            <label n:name="base">Base Nittro Components</label>
-                            <div class="row" id="frm-builderForm-base-container">
-                                <div n:foreach="$form['base']->getItems() as $k => $v" class="12u$">
-                                    <input n:name="base:$k:" />
-                                    <label n:name="base:$k:">{$v}</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="6u 12u$(small)">
-                            <label n:name="extras">Extras</label>
-                            <div class="row" id="frm-builderForm-extras-container">
-                                <div n:foreach="$form['extras']->getItems() as $k => $v" class="12u$">
-                                    <input n:name="extras:$k:" />
-                                    <label n:name="extras:$k:">{$v}</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <hr />
-
-                    <div class="row">
-                        <label n:name="libraries-js" class="3u 12u$(small)">Your JS libraries:</label>
-                        <div class="9u$ 12u$(small)">
-                            <input n:name="libraries-js" />
-                        </div>
-                        <label n:name="libraries-css" class="3u 12u$(small)">Your CSS libraries:</label>
-                        <div class="9u$ 12u$(small)">
-                            <input n:name="libraries-css" />
-                        </div>
-                    </div>
-
-                    <hr />
-
-                    <div class="row" id="frm-builderForm-bootstrap-container">
-                        <label n:name="bootstrap" class="3u 12u$(large)">Bootstrap:</label>
-                        <div n:foreach="$form['bootstrap']->getItems() as $k => $v" class="3u 12u$(large)">
-                            <input n:name="bootstrap:$k:" />
-                            <label n:name="bootstrap:$k:">{$v}</label>
-                        </div>
-                    </div>
-
-                    <div class="row" id="frm-builderForm-bootstrapOptions-container"{if $form['bootstrap']->getValue() !== 'auto'} style="display:none;"{/if}>
-                        <label n:name="bootstrap_options" class="3u 12u$(large)">Bootstrap options:</label>
-                        <div class="9u$ 12u$(large)">
-                            <textarea n:name="bootstrap_options" rows="5"{if $form['bootstrap']->getValue() !== 'auto'} disabled{/if}></textarea>
-                        </div>
-                        <ul n:errors="bootstrap_options" class="-3u 9u$ -1u(large) 11u$(large)"></ul>
-                    </div>
-
-                    <div class="row" id="frm-builderForm-customBootstrap-container"{if $form['bootstrap']->getValue() !== 'custom'} style="display:none;"{/if}>
-                        <label n:name="custom_bootstrap" class="3u 12u$(large)">Custom bootstrap:</label>
-                        <div class="9u$ 12u$(large)">
-                            <input n:name="custom_bootstrap"{if $form['bootstrap']->getValue() !== 'custom'} disabled{/if} />
-                        </div>
-                        <ul n:errors="custom_bootstrap" class="-3u 9u$ -1u(large) 11u$(large)"></ul>
-                    </div>
-
-                    <hr />
-
-                    <div class="row">
-                        <div class="-3u 9u$">
-                            <input n:name="stack" />
-                            <label n:name="stack">Include _stack library</label>
-                        </div>
-                    </div>
-
-                    <hr />
-
-                    <div class="align-center">
-                        <button n:name="build" type="submit" class="button big icon fa-download">Download custom build</button>
-                    </div>
-                </form>
+                <span class="icon major fa-university"></span>
+                <h3>Full</h3>
+                <p>
+                    Download: <a href="#">nittro-full-2.0.0.zip</a><br />
+                    Bower: <code>nittro-full</code>
+                </p>
+                <p>
+                    Contains all Base and Extras packages
+                </p>
             </section>
         </div>
     </section>
 
+    <section>
+        <h2>Option 2: Build a custom package</h2>
+
+        <form n:name="builderForm" data-ajax="false">
+            <ul n:formErrors></ul>
+
+            <hr />
+
+            <div class="row">
+                <label n:name="vendor-js" class="3u 12u$(small)">Vendor JS:</label>
+                <div class="9u$ 12u$(small)">
+                    <input n:name="vendor-js" />
+                </div>
+                <label n:name="vendor-css" class="3u 12u$(small)">Vendor CSS:</label>
+                <div class="9u$ 12u$(small)">
+                    <input n:name="vendor-css" />
+                </div>
+            </div>
+
+            <hr />
+
+            <div class="row">
+                <div class="6u 12u$(small)">
+                    <label n:name="base">Base Nittro Components</label>
+                    <div class="row" id="frm-builderForm-base-container">
+                        <div n:foreach="$form['base']->getItems() as $k => $v" class="12u$">
+                            <input n:name="base:$k:" />
+                            <label n:name="base:$k:">{$v}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="6u 12u$(small)">
+                    <label n:name="extras">Extras</label>
+                    <div class="row" id="frm-builderForm-extras-container">
+                        <div n:foreach="$form['extras']->getItems() as $k => $v" class="12u$">
+                            <input n:name="extras:$k:" />
+                            <label n:name="extras:$k:">{$v}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr />
+
+            <div class="row">
+                <label n:name="libraries-js" class="3u 12u$(small)">Your JS libraries:</label>
+                <div class="9u$ 12u$(small)">
+                    <input n:name="libraries-js" />
+                </div>
+                <label n:name="libraries-css" class="3u 12u$(small)">Your CSS libraries:</label>
+                <div class="9u$ 12u$(small)">
+                    <input n:name="libraries-css" />
+                </div>
+            </div>
+
+            <hr />
+
+            <div class="row" id="frm-builderForm-bootstrap-container">
+                <label n:name="bootstrap" class="3u 12u$(large)">Bootstrap:</label>
+                <div n:foreach="$form['bootstrap']->getItems() as $k => $v" class="3u 12u$(large)">
+                    <input n:name="bootstrap:$k:" />
+                    <label n:name="bootstrap:$k:">{$v}</label>
+                </div>
+                <ul n:errors="bootstrap:auto" class="-3u 9u$ -1u(large) 11u(large)"></ul>
+            </div>
+
+            <div class="row" id="frm-builderForm-bootstrapOptions-container"{if $form['bootstrap']->getValue() !== 'auto'} style="display:none;"{/if}>
+                <label n:name="bootstrap_options" class="3u 12u$(large)">Bootstrap options:</label>
+                <div class="9u$ 12u$(large)">
+                    <textarea n:name="bootstrap_options" rows="5"{if $form['bootstrap']->getValue() !== 'auto'} disabled{/if}></textarea>
+                </div>
+                <ul n:errors="bootstrap_options" class="-3u 9u$ -1u(large) 11u$(large)"></ul>
+            </div>
+
+            <div class="row" id="frm-builderForm-customBootstrap-container"{if $form['bootstrap']->getValue() !== 'custom'} style="display:none;"{/if}>
+                <label n:name="custom_bootstrap" class="3u 12u$(large)">Custom bootstrap:</label>
+                <div class="9u$ 12u$(large)">
+                    <input n:name="custom_bootstrap"{if $form['bootstrap']->getValue() !== 'custom'} disabled{/if} />
+                </div>
+                <ul n:errors="custom_bootstrap" class="-3u 9u$ -1u(large) 11u$(large)"></ul>
+            </div>
+
+            <hr />
+
+            <div class="row">
+                <div class="-3u 9u$">
+                    <input n:name="stack" />
+                    <label n:name="stack">Include _stack library</label>
+                </div>
+            </div>
+
+            <hr />
+
+            <div class="align-center">
+                <button n:name="build" type="submit" class="button big icon fa-download">Download custom build</button>
+            </div>
+        </form>
+    </section>
+
     <div id="dz-cover"></div>
+
+    <script type="application/json" id="package-dependencies">{$dependencies}</script>
 
     <script type="application/javascript">
         _stack.push([function (DOM, Neon, DropZone, di) {
@@ -141,7 +140,10 @@
 
         	di.getService('page').getSnippet('frm-builderForm')
                 .setup(function(form) {
-                    var frm = di.getService('formLocator').getForm(form);
+                    var frm = di.getService('formLocator').getForm(form),
+                        dependencies = DOM.getById('package-dependencies');
+
+                    dependencies = JSON.parse(dependencies.text || dependencies.textContent || dependencies.innerHTML);
 
                     tc = di.create('tabContext');
                     tc.addFromContainer(frm.getElement());
@@ -154,6 +156,9 @@
                     ecl = di.create('checkList', [{
                         container: 'frm-builderForm-extras-container'
                     }]);
+
+                    bcl.on('change', checkDependencies);
+                    ecl.on('change', checkDependencies);
 
                     dz = new DropZone(null, null, {
                         allowedTypes: 'text/plain,text/javascript,text/json,application/json,.json',
@@ -247,6 +252,35 @@
                         frm.getElement('custom_bootstrap').disabled = val !== 'custom';
                     }
 
+                    function checkDependencies() {
+                        var values = { base: frm.getValue('base[]'), extras: frm.getValue('extras[]') },
+                            packages = values.base.map(function(p) { return 'base-' + p; })
+                                .concat(values.extras.map(function(p) { return 'extras-' + p; })),
+                            pkg, deps, i, t;
+
+                        for (i = 0; i < packages.length; i++) {
+                        	pkg = packages[i].split(/-/);
+                        	deps = dependencies[pkg[0]][pkg[1]];
+
+                        	if (deps) {
+                                for (t in deps) {
+                                    if (deps.hasOwnProperty(t)) {
+                                        deps[t].forEach(function (p) {
+                                            pkg = t + '-' + p;
+
+                                            if (packages.indexOf(pkg) === -1) {
+                                                packages.push(pkg);
+                                                values[t].push(p);
+                                            }
+                                        });
+                                    }
+                                }
+                            }
+                        }
+
+                        frm.setValues(values);
+                    }
+
                     function loadConfig(config) {
                         if (!('base' in config || 'extras' in config)) {
                             di.getService('flashes').add('Sorry, this doesn\'t look like a valid Nittro builder config file', 'error');
@@ -295,6 +329,7 @@
 
                         frm.setValues(config, true);
                         updateBootstrapOptions();
+                        checkDependencies();
                     }
                 })
                 .teardown(function () {

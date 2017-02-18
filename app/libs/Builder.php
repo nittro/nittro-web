@@ -7,6 +7,7 @@ namespace App\Libs;
 use Nette\Application\Application;
 use Nette\Http\FileUpload;
 use Nette\Neon\Neon;
+use Nette\Utils\Finder;
 use Nette\Utils\Random;
 use Symfony\Component\Process\ProcessBuilder;
 
@@ -20,6 +21,9 @@ class Builder {
 
     /** @var string */
     private $tempDir;
+
+    /** @var array */
+    private $dependencies = null;
 
     /**
      * @param Application $application
@@ -105,11 +109,54 @@ class Builder {
         return $config;
     }
 
-    private function cleanupTempDir($tempDir) {
-        $dir = new \RecursiveDirectoryIterator($tempDir, \RecursiveDirectoryIterator::SKIP_DOTS);
-        $it = new \RecursiveIteratorIterator($dir, \RecursiveIteratorIterator::CHILD_FIRST);
+    /**
+     * @return array
+     */
+    public function getDependencies() {
+        if ($this->dependencies === null) {
+            $this->dependencies = $this->loadDependencies();
+        }
 
-        foreach ($it as $file) {
+        return $this->dependencies;
+    }
+
+    /**
+     * @return array
+     */
+    private function loadDependencies() {
+        $modules = Finder::findDirectories('nittro-*')->in($this->rootDir . '/node_modules');
+        $dependencies = [];
+
+        foreach ($modules as $module) {
+            if (is_file($module->getRealPath() . '/package.json')) {
+                $package = json_decode(file_get_contents($module->getRealPath() . '/package.json'), true);
+                list ($type, $name) = $this->extractTypeAndName($package['name']);
+
+                if (!empty($package['dependencies'])) {
+                    foreach ($package['dependencies'] as $dependency => $version) {
+                        if (strncmp($dependency, 'nittro-', 7) === 0) {
+                            list ($t, $n) = $this->extractTypeAndName($dependency);
+                            $dependencies[$type][$name][$t][] = $n;
+                        }
+                    }
+                }
+            }
+        }
+
+        return $dependencies;
+    }
+
+    private function extractTypeAndName($package) {
+        $i = strrpos($package, '-');
+        $type = substr($package, 0, $i) === 'nittro-extras' ? 'extras' : 'base';
+        $name = substr($package, $i + 1);
+        return [$type, $name];
+    }
+
+    private function cleanupTempDir($tempDir) {
+        $files = Finder::find('**')->from($tempDir)->childFirst();
+
+        foreach ($files as $file) {
             if ($file->isDir()) {
                 rmdir($file->getRealPath());
             } else {
