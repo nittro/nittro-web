@@ -3,25 +3,312 @@
 
     <section class="wrapper">
         <div class="inner">
-            <div class="features">
-                <p>
-                    We're currently working on a tool to build custom packages tailored for your needs.
-                    In the meantime please use Bower to download Nittro and the <code>gulp-nittro</code> or
-                    <code>grunt-nittro</code> plugins to roll your own packages.
-                </p>
-                {*<section>
-                    <span class="icon major fa-university"></span>
-                    <h3>Full package <a href="https://travis-ci.org/nittro/nittro" class="build-icon"><img src="https://travis-ci.org/nittro/nittro.svg?tag={$versions['nittro']}" alt="Build Status"></a></h3>
-                    <p>
-                        Download: <a href="https://github.com/nittro/nittro/archive/{$versions['nittro']}.zip">nittro-{$versions['nittro']}.zip</a><br />
-                        Bower: <code>nittro</code>
-                    </p>
-                    <p>
-                        Contains all the other packages plus a few extras, like Dialogs
-                    </p>
-                </section>*}
-            </div>
+            <section>
+                <h2>Option 1: Pick a prebuilt package</h2>
+
+                <div class="features">
+                    <section>
+                        <span class="icon major fa-code"></span>
+                        <h3>Essentials</h3>
+                        <p>
+                            Download: <a href="#">nittro-essentials-2.0.0.zip</a><br />
+                            Bower: <code>nittro-essentials</code>
+                        </p>
+                        <p>
+                            Contains all Base packages except Routing, plus Dialogs and Confirm
+                        </p>
+                    </section>
+
+                    <section>
+                        <span class="icon major fa-university"></span>
+                        <h3>Full</h3>
+                        <p>
+                            Download: <a href="#">nittro-full-2.0.0.zip</a><br />
+                            Bower: <code>nittro-full</code>
+                        </p>
+                        <p>
+                            Contains all Base and Extras packages
+                        </p>
+                    </section>
+                </div>
+            </section>
+
+            <section>
+                <h2>Option 2: Build a custom package</h2>
+
+                <form n:name="builderForm" data-ajax="false">
+                    <ul n:formErrors></ul>
+
+                    <hr />
+
+                    <div class="row">
+                        <label n:name="vendor-js" class="3u 12u$(small)">Vendor JS:</label>
+                        <div class="9u$ 12u$(small)">
+                            <input n:name="vendor-js" />
+                        </div>
+                        <label n:name="vendor-css" class="3u 12u$(small)">Vendor CSS:</label>
+                        <div class="9u$ 12u$(small)">
+                            <input n:name="vendor-css" />
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <div class="row">
+                        <div class="6u 12u$(small)">
+                            <label n:name="base">Base Nittro Components</label>
+                            <div class="row" id="frm-builderForm-base-container">
+                                <div n:foreach="$form['base']->getItems() as $k => $v" class="12u$">
+                                    <input n:name="base:$k:" />
+                                    <label n:name="base:$k:">{$v}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="6u 12u$(small)">
+                            <label n:name="extras">Extras</label>
+                            <div class="row" id="frm-builderForm-extras-container">
+                                <div n:foreach="$form['extras']->getItems() as $k => $v" class="12u$">
+                                    <input n:name="extras:$k:" />
+                                    <label n:name="extras:$k:">{$v}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <div class="row">
+                        <label n:name="libraries-js" class="3u 12u$(small)">Your JS libraries:</label>
+                        <div class="9u$ 12u$(small)">
+                            <input n:name="libraries-js" />
+                        </div>
+                        <label n:name="libraries-css" class="3u 12u$(small)">Your CSS libraries:</label>
+                        <div class="9u$ 12u$(small)">
+                            <input n:name="libraries-css" />
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <div class="row" id="frm-builderForm-bootstrap-container">
+                        <label n:name="bootstrap" class="3u 12u$(large)">Bootstrap:</label>
+                        <div n:foreach="$form['bootstrap']->getItems() as $k => $v" class="3u 12u$(large)">
+                            <input n:name="bootstrap:$k:" />
+                            <label n:name="bootstrap:$k:">{$v}</label>
+                        </div>
+                    </div>
+
+                    <div class="row" id="frm-builderForm-bootstrapOptions-container"{if $form['bootstrap']->getValue() !== 'auto'} style="display:none;"{/if}>
+                        <label n:name="bootstrap_options" class="3u 12u$(large)">Bootstrap options:</label>
+                        <div class="9u$ 12u$(large)">
+                            <textarea n:name="bootstrap_options" rows="5"{if $form['bootstrap']->getValue() !== 'auto'} disabled{/if}></textarea>
+                        </div>
+                        <ul n:errors="bootstrap_options" class="-3u 9u$ -1u(large) 11u$(large)"></ul>
+                    </div>
+
+                    <div class="row" id="frm-builderForm-customBootstrap-container"{if $form['bootstrap']->getValue() !== 'custom'} style="display:none;"{/if}>
+                        <label n:name="custom_bootstrap" class="3u 12u$(large)">Custom bootstrap:</label>
+                        <div class="9u$ 12u$(large)">
+                            <input n:name="custom_bootstrap"{if $form['bootstrap']->getValue() !== 'custom'} disabled{/if} />
+                        </div>
+                        <ul n:errors="custom_bootstrap" class="-3u 9u$ -1u(large) 11u$(large)"></ul>
+                    </div>
+
+                    <hr />
+
+                    <div class="row">
+                        <div class="-3u 9u$">
+                            <input n:name="stack" />
+                            <label n:name="stack">Include _stack library</label>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <div class="align-center">
+                        <button n:name="build" type="submit" class="button big icon fa-download">Download custom build</button>
+                    </div>
+                </form>
+            </section>
         </div>
     </section>
+
+    <div id="dz-cover"></div>
+
+    <script type="application/javascript">
+        _stack.push([function (DOM, Neon, DropZone, di) {
+        	var tc, dz, bcl, ecl;
+
+        	di.getService('page').getSnippet('frm-builderForm')
+                .setup(function(form) {
+                    var frm = di.getService('formLocator').getForm(form);
+
+                    tc = di.create('tabContext');
+                    tc.addFromContainer(frm.getElement());
+                    di.getService('keymapManager').push(tc);
+
+                    bcl = di.create('checkList', [{
+                        container: 'frm-builderForm-base-container'
+                    }]);
+
+                    ecl = di.create('checkList', [{
+                        container: 'frm-builderForm-extras-container'
+                    }]);
+
+                    dz = new DropZone(null, null, {
+                        allowedTypes: 'text/plain,text/javascript,text/json,application/json,.json',
+                        multiple: false,
+                        maxSize: '10kB'
+                    });
+
+                    dz.attach(DOM.getById('dz-cover'));
+
+                    dz.on('error', function (evt) {
+                        di.getService('flashes').add(evt.data.message, 'error');
+                    });
+
+                    dz.on('file', function (evt) {
+                        evt.preventDefault();
+
+                        var reader = new FileReader(),
+                            file = evt.data.file;
+
+                        reader.onload = function () {
+                            var config;
+
+                            try {
+                                config = JSON.parse(reader.result);
+                            } catch (e) {
+                                di.getService('flashes').add('Error parsing JSON in file ' + file.name, 'error');
+                            }
+
+                            file = reader = null;
+
+                            if (config) {
+                                loadConfig(config);
+                            }
+                        };
+
+                        reader.onerror = function () {
+                            di.getService('flashes').add('Error reading file ' + file.name, 'error');
+                            file = reader = null;
+                        };
+
+                        reader.readAsText(file);
+                    });
+
+                    dz.on('body-enter', function () {
+                        DOM.toggleClass('dz-cover', 'visible', true);
+                    });
+
+                    dz.on('body-leave drop', function () {
+                        DOM.toggleClass('dz-cover', 'visible', false);
+                    });
+
+                    DOM.addListener(frm.getElement('bootstrap_options'), 'keydown', function (evt) {
+                    	var val = evt.target.value,
+                            s = evt.target.selectionStart,
+                            e = evt.target.selectionEnd;
+
+                        if (evt.which === 32 && s === e && (e === 0 || val.substr(0, e).match(/\n\t*$/))) {
+                            evt.preventDefault();
+                            evt.target.value = val.substr(0, e) + "\t" + val.substr(e);
+                            evt.target.selectionStart = evt.target.selectionEnd = e + 1;
+                        }
+                    });
+
+
+                    DOM.addListener('frm-builderForm-bootstrap-container', 'change', updateBootstrapOptions);
+
+
+                    frm.on('validate', function (evt) {
+                        if (frm.getElement('bootstrap').value === 'auto') {
+                            var elem = frm.getElement('bootstrap_options');
+
+                            try {
+                                Neon.decode(elem.value);
+                            } catch (e) {
+                                evt.preventDefault();
+
+                                frm.trigger('error', {
+                                    element: elem,
+                                    message: 'Error parsing NEON: ' + e.message
+                                });
+                            }
+                        }
+                    });
+
+
+                    function updateBootstrapOptions() {
+                        var val = frm.getElement('bootstrap').value;
+                        DOM.setStyle('frm-builderForm-bootstrapOptions-container', 'display', val === 'auto' ? '' : 'none');
+                        DOM.setStyle('frm-builderForm-customBootstrap-container', 'display', val === 'custom' ? '' : 'none');
+                        frm.getElement('bootstrap_options').disabled = val !== 'auto';
+                        frm.getElement('custom_bootstrap').disabled = val !== 'custom';
+                    }
+
+                    function loadConfig(config) {
+                        if (!('base' in config || 'extras' in config)) {
+                            di.getService('flashes').add('Sorry, this doesn\'t look like a valid Nittro builder config file', 'error');
+                            return;
+                        }
+
+                        if (config.vendor && (config.vendor.js && config.vendor.js.length || config.vendor.css && config.vendor.css.length)
+                            || config.libraries && (config.libraries.js && config.libraries.js.length || config.libraries.css && config.libraries.css.length)) {
+                            di.getService('flashes').add('Remember to add any 3rd-party JS and / or CSS in the Vendor and Libraries fields', 'warning');
+                        }
+
+                        delete config.vendor;
+                        delete config.libraries;
+
+                        var base = [],
+                            extras = [],
+                            k;
+
+                        for (k in config.base) {
+                            if (config.base.hasOwnProperty(k) && config.base[k]) {
+                                base.push(k);
+                            }
+                        }
+
+                        for (k in config.extras) {
+                            if (config.extras.hasOwnProperty(k) && config.extras[k]) {
+                                extras.push(k);
+                            }
+                        }
+
+                        config.base = base;
+                        config.extras = extras;
+
+                        if (config.bootstrap) {
+                            if (typeof config.bootstrap === 'object') {
+                                config.bootstrap_options = Neon.encode(config.bootstrap, Neon.BLOCK);
+                                config.bootstrap = 'auto';
+                            } else if (typeof config.bootstrap === 'string') {
+                                config.bootstrap = 'custom';
+                            } else {
+                                config.bootstrap = 'auto';
+                            }
+                        } else {
+                            config.bootstrap = 'none';
+                        }
+
+                        frm.setValues(config, true);
+                        updateBootstrapOptions();
+                    }
+                })
+                .teardown(function () {
+                    tc && di.getService('keymap').pop(tc);
+                    dz && dz.destroy();
+                    bcl && bcl.destroy();
+                    ecl && ecl.destroy();
+                    tc = dz = bcl = ecl = null;
+                });
+        }, {
+        	'DOM': 'Utils.DOM',
+            'Neon': 'Nittro.Neon.Neon',
+            'DropZone': 'Nittro.Extras.DropZone.DropZone'
+        }]);
+    </script>
 
 {/block}

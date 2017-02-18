@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "24308e379c03d9cd8bac13d49a3443d7",
-    "content-hash": "ce1c6b900754604deade8f2cc72cc967",
+    "hash": "7c2441868153cb4d44dc5ef72d3d08f3",
+    "content-hash": "4393aec5b37b69e5a836450981142388",
     "packages": [
         {
             "name": "erusev/parsedown",
@@ -1076,6 +1076,93 @@
             "time": "2016-09-28 17:57:14"
         },
         {
+            "name": "nittro/nette-bridges",
+            "version": "v2.0.0-rc.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nittro/nette-bridges.git",
+                "reference": "014955288b3a667926bad6320c0a6d61cd4e8d48"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nittro/nette-bridges/zipball/014955288b3a667926bad6320c0a6d61cd4e8d48",
+                "reference": "014955288b3a667926bad6320c0a6d61cd4e8d48",
+                "shasum": ""
+            },
+            "require-dev": {
+                "latte/latte": "^2.4",
+                "nette/application": "^2.4"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dan Kadera",
+                    "email": "me@subsonic.cz"
+                }
+            ],
+            "description": "Nittro PHP bridges",
+            "homepage": "https://www.nittro.org/",
+            "time": "2017-02-09 12:24:28"
+        },
+        {
+            "name": "symfony/process",
+            "version": "v3.2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/process.git",
+                "reference": "32646a7cf53f3956c76dcb5c82555224ae321858"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/process/zipball/32646a7cf53f3956c76dcb5c82555224ae321858",
+                "reference": "32646a7cf53f3956c76dcb5c82555224ae321858",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Process\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Process Component",
+            "homepage": "https://symfony.com",
+            "time": "2017-02-03 12:11:38"
+        },
+        {
             "name": "tracy/tracy",
             "version": "v2.4.3",
             "source": {
@@ -1140,9 +1227,11 @@
     ],
     "packages-dev": [],
     "aliases": [],
-    "minimum-stability": "stable",
-    "stability-flags": [],
-    "prefer-stable": false,
+    "minimum-stability": "RC",
+    "stability-flags": {
+        "nittro/nette-bridges": 5
+    },
+    "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": ">= 5.4.0"

@@ -17,8 +17,12 @@ application:
 session:
     expiration: 14 days
 
+latte:
+    macros:
+        - Nittro\Bridges\NittroLatte\NittroMacros
 
 services:
     router: App\RouterFactory::createRouter(%productionMode%)
     wiki: App\Libs\Wiki(wikiPath: "%reposPath%/wiki")
     parsedown: App\Libs\Parsedown()
+    builder: App\Libs\Builder(rootDir: %appDir%/.., tempDir: %tempDir%/builder)

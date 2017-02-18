@@ -2,7 +2,10 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
     less = require('gulp-less'),
-    nittro = require('gulp-nittro');
+    postcss = require('gulp-postcss'),
+    autoprefixer = require('autoprefixer'),
+    nittro = require('gulp-nittro'),
+    sourcemaps = require('gulp-sourcemaps');
 
 var builder = new nittro.Builder({
     vendor: {
@@ -22,16 +25,13 @@ var builder = new nittro.Builder({
         forms: true,
         ajax: true,
         page: true,
-        storage: true,
+        flashes: true,
         routing: true
     },
     extras: {
-        flashes: true,
-        dialogs: true,
-        confirm: true,
+        checklist: true,
         dropzone: true,
-        paginator: true,
-        checklist: true
+        keymap: true
     },
     libraries: {
         js: [
@@ -56,20 +56,25 @@ var builder = new nittro.Builder({
 
 gulp.task('js-main', function() {
     return nittro('js', builder)
+        .pipe(sourcemaps.init())
         .pipe(concat('site.min.js'))
         .pipe(uglify({
             mangle: false,
             compress: true
         }))
+        .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest('public/_js/'));
 });
 
 gulp.task('css-main', function() {
     return nittro('css', builder)
+        .pipe(sourcemaps.init())
         .pipe(concat('site.min.css'))
         .pipe(less({
             compress: true
         }))
+        .pipe(postcss([ autoprefixer() ]))
+        .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest('public/_css/'));
 });
 
@@ -82,5 +87,5 @@ gulp.task('css-assets', function() {
     return gulp.src(['assets/css/ie8.css', 'assets/css/ie9.css'])
         .pipe(gulp.dest('public/_css/'));
 });
-
+1
 gulp.task('default', ['js-main', 'css-main', 'js-assets', 'css-assets']);

@@ -2,14 +2,20 @@
   "name": "nittro-web",
   "license": "MIT",
   "repository": "https://github.com/nittro/nittro-web",
-  "devDependencies": {
+  "dependencies": {
+    "autoprefixer": "^6.7.2",
+    "fs": "0.0.1-security",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
     "gulp-less": "^3.1.0",
     "gulp-nittro": "^0.2.0",
-    "gulp-uglify": "^1.5.4"
-  },
-  "dependencies": {
-    "nittro": "^2.0.0-rc.3"
+    "gulp-postcss": "^6.3.0",
+    "gulp-sourcemaps": "^2.4.1",
+    "gulp-uglify": "^1.5.4",
+    "gulp-util": "^3.0.8",
+    "gulp-zip": "^4.0.0",
+    "minimist": "^1.2.0",
+    "nittro": "^2.0.0-rc.5",
+    "nittro-extras": "^2.0.0-rc.1"
   }
 }
