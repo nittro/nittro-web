@@ -80,7 +80,7 @@ var builder = new nittro.Builder(config);
 
 gulp.task('js', function () {
     return nittro('js', builder)
-        .pipe(sourcemaps.init())
+        .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(concat('nittro.min.js'))
         .pipe(uglify({mangle: false, compress: true}))
         .pipe(sourcemaps.write('.', { mapSources: fixMapPath }))
@@ -89,7 +89,7 @@ gulp.task('js', function () {
 
 gulp.task('css', function () {
     return nittro('css', builder)
-        .pipe(sourcemaps.init())
+        .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(less({compress: true}))
         .pipe(postcss([ autoprefixer() ]))
         .pipe(concat('nittro.min.css'))

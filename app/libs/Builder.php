@@ -108,8 +108,12 @@ class Builder {
 
                         /** @var FileUpload $file */
                         foreach ($config[$section][$kind] as $file) {
-                            $files[] = $name = $section . '/' . $kind . '/' . $file->getSanitizedName();
+                            $name = $section . '/' . $kind . '/' . $file->getSanitizedName();
                             $file->move($tempDir . '/' . $name);
+
+                            if (!preg_match('/\.map$/i', $name)) {
+                                $files[] = $name;
+                            }
                         }
 
                         $config[$section][$kind] = $files;

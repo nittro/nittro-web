@@ -92,11 +92,11 @@ class HomepagePresenter extends BasePresenter {
 
         $vendor->addMultiUpload('js', 'JavaScripts:')
             ->addCondition(Form::FILLED)
-            ->addRule(Form::MIME_TYPE, 'Only JavaScript files are allowed', 'text/javascript,text/plain,application/javascript,application/json');
+            ->addRule(Form::MIME_TYPE, 'Only JavaScript files are allowed', 'text/javascript,text/plain,application/javascript,application/json,application/octet-stream');
 
         $vendor->addMultiUpload('css', 'Stylesheets:')
             ->addCondition(Form::FILLED)
-            ->addRule(Form::MIME_TYPE, 'Only CSS and LESS files are allowed', 'text/css,text/less,text/plain,application/json');
+            ->addRule(Form::MIME_TYPE, 'Only CSS and LESS files are allowed', 'text/css,text/less,text/plain,application/json,application/octet-stream');
 
         $form->addCheckboxList('base', 'Base packages:', [
             'core' => 'Core',
@@ -124,11 +124,11 @@ class HomepagePresenter extends BasePresenter {
 
         $libraries->addMultiUpload('js', 'JavaScripts:')
             ->addCondition(Form::FILLED)
-            ->addRule(Form::MIME_TYPE, 'Only JavaScript files are allowed', 'text/javascript,text/plain,application/javascript,application/json');
+            ->addRule(Form::MIME_TYPE, 'Only JavaScript files are allowed', 'text/javascript,text/plain,application/javascript,application/json,application/octet-stream');
 
         $libraries->addMultiUpload('css', 'Stylesheets:')
             ->addCondition(Form::FILLED)
-            ->addRule(Form::MIME_TYPE, 'Only CSS and LESS files are allowed', 'text/css,text/less,text/plain,application/json');
+            ->addRule(Form::MIME_TYPE, 'Only CSS and LESS files are allowed', 'text/css,text/less,text/plain,application/json,application/octet-stream');
 
         $form->addRadioList('bootstrap', 'Bootstrap:', [
                 'auto' => 'Generate automatically',
