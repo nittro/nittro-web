@@ -89,14 +89,8 @@ class HomepagePresenter extends BasePresenter {
         $form = new Form();
 
         $vendor = $form->addContainer('vendor');
-
-        $vendor->addMultiUpload('js', 'JavaScripts:')
-            ->addCondition(Form::FILLED)
-            ->addRule(Form::MIME_TYPE, 'Only JavaScript files are allowed', 'text/javascript,text/plain,application/javascript,application/json,application/octet-stream');
-
-        $vendor->addMultiUpload('css', 'Stylesheets:')
-            ->addCondition(Form::FILLED)
-            ->addRule(Form::MIME_TYPE, 'Only CSS and LESS files are allowed', 'text/css,text/less,text/plain,application/json,application/octet-stream');
+        $vendor->addMultiUpload('js', 'JavaScripts:');
+        $vendor->addMultiUpload('css', 'Stylesheets:');
 
         $form->addCheckboxList('base', 'Base packages:', [
             'core' => 'Core',
@@ -121,14 +115,8 @@ class HomepagePresenter extends BasePresenter {
         ]);
 
         $libraries = $form->addContainer('libraries');
-
-        $libraries->addMultiUpload('js', 'JavaScripts:')
-            ->addCondition(Form::FILLED)
-            ->addRule(Form::MIME_TYPE, 'Only JavaScript files are allowed', 'text/javascript,text/plain,application/javascript,application/json,application/octet-stream');
-
-        $libraries->addMultiUpload('css', 'Stylesheets:')
-            ->addCondition(Form::FILLED)
-            ->addRule(Form::MIME_TYPE, 'Only CSS and LESS files are allowed', 'text/css,text/less,text/plain,application/json,application/octet-stream');
+        $libraries->addMultiUpload('js', 'JavaScripts:');
+        $libraries->addMultiUpload('css', 'Stylesheets:');
 
         $form->addRadioList('bootstrap', 'Bootstrap:', [
                 'auto' => 'Generate automatically',
@@ -143,10 +131,7 @@ class HomepagePresenter extends BasePresenter {
 
         $form->addUpload('custom_bootstrap', 'Custom bootstrap:')
             ->addConditionOn($form['bootstrap'], Form::EQUAL, 'custom')
-            ->addRule(Form::FILLED, 'Please select your custom bootstrap file or choose a different bootstrap option above')
-            ->endCondition()
-            ->addCondition(Form::FILLED)
-            ->addRule(Form::MIME_TYPE, 'Only JavaScript files are allowed', 'text/javascript,application/javascript');
+            ->addRule(Form::FILLED, 'Please select your custom bootstrap file or choose a different bootstrap option above');
 
         $form->addCheckbox('stack', 'Include _stack library')
             ->setRequired(false)
