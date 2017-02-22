@@ -6,29 +6,28 @@ _context.invoke('App', function (DOM) {
         };
 
         this._.page.on('transaction-created', function(evt) {
-            evt.data.transaction.add('tabs', this);
+            this.init(evt.data.transaction);
         }.bind(this));
 
     }, {
-        init: function(transaction, context) {
-            return {
+        init: function(transaction) {
+            var data = {
                 tab: null
             };
+
+            transaction.on('dispatch', this._dispatch.bind(this, data));
+            transaction.on('ajax-response', this._handleResponse.bind(this, data));
         },
 
-        dispatch: function(transaction, data) {
-            transaction.then(this._handleSuccess.bind(this, data));
+        _dispatch: function(data, evt) {
+            evt.target.then(this._handleSuccess.bind(this, data));
         },
 
-        abort: function() {},
+        _handleResponse: function(data, evt) {
+            var payload = evt.data.response.getPayload();
 
-        handleAction: function(transaction, agent, action, actionData, data) {
-            if (agent === 'ajax' && action === 'response') {
-                var payload = actionData.getPayload();
-
-                if ('tab' in payload) {
-                    data.tab = payload.tab;
-                }
+            if ('tab' in payload) {
+                data.tab = payload.tab;
             }
         },
 

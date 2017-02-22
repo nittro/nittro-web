@@ -75,6 +75,12 @@
     }
 }
 
+@media screen and (max-width: 736px) {
+    .\-0u\28small\29 {
+        margin-left: 0;
+    }
+}
+
 .build-icon {
     border-bottom: none;
     vertical-align: text-top;
@@ -123,6 +129,56 @@ input[type="file"] {
     }
 }
 
+.form-errors {
+    margin-bottom: 1em;
+    list-style: none;
+
+    &:empty {
+        margin-bottom: 0;
+    }
+
+    li::before {
+        display: inline-block;
+        margin: 0 1em 0 0;
+        font-family: "FontAwesome";
+        color: #d70;
+        content: "\f071";
+    }
+}
+
+.nittro-flash.form-tooltip {
+    font-size: 0.8em;
+}
+
+button.button-info {
+    width: 1.8em;
+    height: 1.8em;
+    padding: 0;
+    font-size: 0.8em;
+    line-height: 1.8em;
+    border-radius: 0.9em;
+    text-align: center;
+
+    &:before {
+        display: inline-block;
+        transform-origin: left center;
+        transform: translateX(0.1em);
+    }
+}
+
+#frm-builderForm-build.nittro-transition-middle {
+    cursor: default;
+    opacity: 0.5;
+    pointer-events: none;
+
+    &:before {
+        display: inline-block;
+        transform-origin: 0.45em center;
+        animation: fa-spin 2s infinite linear;
+        content: "\f021";
+    }
+}
+
 .nittro-flash {
     border-radius: 3px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
@@ -132,7 +188,8 @@ input[type="file"] {
         background: #8897dd;
 
         &:before {
-            border-color: #8897dd;
+            border-top-color: #8897dd;
+            border-right-color: #8897dd;
         }
     }
 
@@ -140,7 +197,8 @@ input[type="file"] {
         background: #d70;
 
         &:before {
-            border-color: #d70;
+            border-top-color: #d70;
+            border-right-color: #d70;
         }
     }
 
@@ -148,7 +206,8 @@ input[type="file"] {
         background: #f20;
 
         &:before {
-            border-color: #f20;
+            border-top-color: #f20;
+            border-right-color: #f20;
         }
     }
 }

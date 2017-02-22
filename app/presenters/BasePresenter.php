@@ -7,7 +7,7 @@
  */
 
 namespace App\Presenters;
-use Nette\Application\UI\Presenter;
+use Nittro\Bridges\NittroUI\Presenter;
 
 class BasePresenter extends Presenter {
 
@@ -17,33 +17,6 @@ class BasePresenter extends Presenter {
     /** @var string */
     protected $tab = 'home';
 
-    /** @var bool */
-    private $signalled;
-
-
-
-    protected function startup() {
-        parent::startup();
-
-        $this->signalled = $this->getSignal() !== null;
-
-    }
-
-    public function isSignalled() {
-        return $this->signalled;
-
-    }
-
-    public function postGet($destination, array $args = []) {
-        if ($this->isAjax()) {
-            $this->payload->postGet = true;
-            $this->payload->url = $this->link($destination, $args);
-
-        } else {
-            $this->redirect($destination, $args);
-
-        }
-    }
 
     protected function afterRender() {
         parent::afterRender();
@@ -52,12 +25,8 @@ class BasePresenter extends Presenter {
         $this->template->tab = $this->tab;
 
         if ($this->isAjax()) {
-            if (!$this->isSignalled() && !$this->isControlInvalid()) {
-                $this->redrawControl('content');
-                $this->payload->title = $this->title;
-                $this->payload->tab = $this->tab;
-
-            }
+            $this->payload->title = $this->title;
+            $this->payload->tab = $this->tab;
         }
     }
 

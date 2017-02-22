@@ -5,6 +5,7 @@ namespace App\Libs;
 
 
 use Nette\Application\Application;
+use Nette\FileNotFoundException;
 use Nette\Http\FileUpload;
 use Nette\Neon\Neon;
 use Nette\Utils\Finder;
@@ -53,17 +54,28 @@ class Builder {
 
         $builder->getProcess()->mustRun();
 
-        return $tempDir . '/nittro.zip';
+        return basename($tempDir);
     }
 
-    private function allocateTempDir() {
-        do {
-            $tempDir = $this->tempDir . '/' . Random::generate();
-        } while (@mkdir($tempDir, 0700, false) === false);
+    public function getArchivePath($buildId) {
+        $tempDir = $this->tempDir . '/' . $buildId;
+        $archivePath = $tempDir . '/nittro.zip';
+
+        if (!is_file($archivePath)) {
+            throw new FileNotFoundException();
+        }
 
         $this->application->onShutdown[] = function () use ($tempDir) {
             $this->cleanupTempDir($tempDir);
         };
+
+        return $archivePath;
+    }
+
+    private function allocateTempDir() {
+        do {
+            $tempDir = $this->tempDir . '/' . Random::generate(45);
+        } while (@mkdir($tempDir, 0700, false) === false);
 
         return $tempDir;
     }

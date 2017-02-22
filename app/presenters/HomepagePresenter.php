@@ -7,9 +7,26 @@ use App\Libs\Builder;
 use App\Libs\FormRules;
 use Nette\Application\Responses\FileResponse;
 use Nette\Application\UI\Form;
-use Nette\Neon\Neon;
+use Nette\FileNotFoundException;
+
 
 class HomepagePresenter extends BasePresenter {
+
+    private $packageInfo = [
+        'base' => [
+            'forms' => 'Handles form validation and submission via AJAX. Note that selecting this package will include <code>netteForms.js</code> automatically.',
+        ],
+        'extras' => [
+            'checklist' => 'Drag to toggle consecutive checkboxes. You can try it here!',
+            'dialogs' => 'Open any snippet in a dialog',
+            'confirm' => 'Replace that ugly <code>window.confirm()</code> with something nicer',
+            'dropzone' => 'Drag &amp; drop file upload has never been easier',
+            'paginator' => 'Replace that ugly row of numbers below your content with infinite scrolling!',
+            'keymap' => 'Centralised key binding manager',
+            'storage' => 'A nicer API for DOM Storage',
+        ],
+    ];
+
 
     /** @var Builder */
     private $builder;
@@ -19,6 +36,15 @@ class HomepagePresenter extends BasePresenter {
         $this->builder = $builder;
     }
 
+    public function actionBuild($id) {
+        try {
+            $archivePath = $this->builder->getArchivePath($id);
+            $this->sendResponse(new FileResponse($archivePath));
+
+        } catch (FileNotFoundException $e) {
+            $this->error();
+        }
+    }
 
     public function renderDefault($tut = null) {
         if ($tut) {
@@ -32,6 +58,7 @@ class HomepagePresenter extends BasePresenter {
         $this->title = 'Download';
         $this->tab = 'download';
         $this->template->dependencies = $this->builder->getDependencies();
+        $this->template->packageInfo = $this->packageInfo;
     }
 
     public function renderTutorial($step) {
@@ -39,20 +66,19 @@ class HomepagePresenter extends BasePresenter {
 
         if ($this->isAjax()) {
             $this->redrawControl('tutorial');
-
         }
     }
 
 
     public function doBuild(Form $form, array $values) {
         try {
-            $archivePath = $this->builder->build($values);
+            $buildId = $this->builder->build($values);
         } catch (\Exception $e) {
             $form->addError(get_class($e) . ': ' . $e->getMessage());
             return;
         }
 
-        $this->sendResponse(new FileResponse($archivePath));
+        $this->disallowAjax()->redirect('build', ['id' => $buildId]);
     }
 
     public function createComponentBuilderForm() {
@@ -113,9 +139,15 @@ class HomepagePresenter extends BasePresenter {
 
         $form->addUpload('custom_bootstrap', 'Custom bootstrap:')
             ->addConditionOn($form['bootstrap'], Form::EQUAL, 'custom')
-            ->addRule(Form::FILLED);
+            ->addRule(Form::FILLED, 'Please select your custom bootstrap file or choose a different bootstrap option above')
+            ->endCondition()
+            ->addCondition(Form::FILLED)
+            ->addRule(Form::MIME_TYPE, 'Only JavaScript files are allowed', 'text/javascript,application/javascript');
 
-        $form->addCheckbox('stack', 'Include _stack library');
+        $form->addCheckbox('stack', 'Include _stack library')
+            ->setRequired(false)
+            ->addConditionOn($form['base'], FormRules::DOES_NOT_CONTAIN, 'core')
+            ->addRule(Form::EQUAL, 'You must include the Core Base package to use the _stack library', false);
 
         $form->addSubmit('build', 'Build');
 
@@ -132,11 +164,7 @@ class HomepagePresenter extends BasePresenter {
                 'page',
                 'flashes',
             ],
-            'extras' => [
-                'dialogs',
-                'confirm',
-                'keymap',
-            ],
+            'extras' => [],
             'bootstrap' => 'auto',
             'bootstrap_options' => "params:\nextensions:\nservices:\nfactories:\n",
             'stack' => true,

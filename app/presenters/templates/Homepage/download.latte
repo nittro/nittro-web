@@ -34,8 +34,8 @@
     <section>
         <h2>Option 2: Build a custom package</h2>
 
-        <form n:name="builderForm" data-ajax="false">
-            <ul n:formErrors></ul>
+        <form n:name="builderForm" data-transition="#frm-builderForm-build">
+            <ul n:formErrors class="form-errors"></ul>
 
             <hr />
 
@@ -44,30 +44,38 @@
                 <div class="9u$ 12u$(small)">
                     <input n:name="vendor-js" />
                 </div>
+                <ul n:errors="vendor-js" class="form-errors -3u 9u$ -0u(small) 12u$(small)"></ul>
                 <label n:name="vendor-css" class="3u 12u$(small)">Vendor CSS:</label>
                 <div class="9u$ 12u$(small)">
                     <input n:name="vendor-css" />
                 </div>
+                <ul n:errors="vendor-css" class="form-errors -3u 9u$ -0u(small) 12u$(small)"></ul>
             </div>
 
             <hr />
 
-            <div class="row">
-                <div class="6u 12u$(small)">
+            <div class="row" id="frm-builderForm-components">
+                <div class="6u 12u$(xsmall)">
                     <label n:name="base">Base Nittro Components</label>
                     <div class="row" id="frm-builderForm-base-container">
                         <div n:foreach="$form['base']->getItems() as $k => $v" class="12u$">
                             <input n:name="base:$k:" />
                             <label n:name="base:$k:">{$v}</label>
+                            {ifset $packageInfo['base'][$k]}
+                                <button type="button" class="button-info fa fa-info" tabindex="-1" data-package="base.{$k}"></button>
+                            {/ifset}
                         </div>
                     </div>
                 </div>
-                <div class="6u 12u$(small)">
+                <div class="6u 12u$(xsmall)">
                     <label n:name="extras">Extras</label>
                     <div class="row" id="frm-builderForm-extras-container">
                         <div n:foreach="$form['extras']->getItems() as $k => $v" class="12u$">
                             <input n:name="extras:$k:" />
                             <label n:name="extras:$k:">{$v}</label>
+                            {ifset $packageInfo['extras'][$k]}
+                            <button type="button" class="button-info fa fa-info" tabindex="-1" data-package="extras.{$k}"></button>
+                            {/ifset}
                         </div>
                     </div>
                 </div>
@@ -80,52 +88,55 @@
                 <div class="9u$ 12u$(small)">
                     <input n:name="libraries-js" />
                 </div>
+                <ul n:errors="libraries-js" class="form-errors -3u 9u$ -0u(small) 12u$(small)"></ul>
                 <label n:name="libraries-css" class="3u 12u$(small)">Your CSS libraries:</label>
                 <div class="9u$ 12u$(small)">
                     <input n:name="libraries-css" />
                 </div>
+                <ul n:errors="libraries-css" class="form-errors -3u 9u$ -0u(small) 12u$(small)"></ul>
             </div>
 
             <hr />
 
             <div class="row" id="frm-builderForm-bootstrap-container">
-                <label n:name="bootstrap" class="3u 12u$(large)">Bootstrap:</label>
-                <div n:foreach="$form['bootstrap']->getItems() as $k => $v" class="3u 12u$(large)">
+                <label n:name="bootstrap" class="3u 12u$(small)">Bootstrap:</label>
+                <div n:foreach="$form['bootstrap']->getItems() as $k => $v" class="3u 12u$(small)">
                     <input n:name="bootstrap:$k:" />
                     <label n:name="bootstrap:$k:">{$v}</label>
                 </div>
-                <ul n:errors="bootstrap:auto" class="-3u 9u$ -1u(large) 11u(large)"></ul>
+                <ul n:errors="bootstrap:auto" class="form-errors -3u 9u$ -0u(small) 12u(small)"></ul>
             </div>
 
             <div class="row" id="frm-builderForm-bootstrapOptions-container"{if $form['bootstrap']->getValue() !== 'auto'} style="display:none;"{/if}>
-                <label n:name="bootstrap_options" class="3u 12u$(large)">Bootstrap options:</label>
-                <div class="9u$ 12u$(large)">
+                <label n:name="bootstrap_options" class="3u 12u$(small)">Bootstrap options:</label>
+                <div class="9u$ 12u$(small)">
                     <textarea n:name="bootstrap_options" rows="5"{if $form['bootstrap']->getValue() !== 'auto'} disabled{/if}></textarea>
                 </div>
-                <ul n:errors="bootstrap_options" class="-3u 9u$ -1u(large) 11u$(large)"></ul>
+                <ul n:errors="bootstrap_options" class="form-errors -3u 9u$ -0u(small) 12u$(small)"></ul>
             </div>
 
             <div class="row" id="frm-builderForm-customBootstrap-container"{if $form['bootstrap']->getValue() !== 'custom'} style="display:none;"{/if}>
-                <label n:name="custom_bootstrap" class="3u 12u$(large)">Custom bootstrap:</label>
-                <div class="9u$ 12u$(large)">
+                <label n:name="custom_bootstrap" class="3u 12u$(small)">Custom bootstrap:</label>
+                <div class="9u$ 12u$(small)">
                     <input n:name="custom_bootstrap"{if $form['bootstrap']->getValue() !== 'custom'} disabled{/if} />
                 </div>
-                <ul n:errors="custom_bootstrap" class="-3u 9u$ -1u(large) 11u$(large)"></ul>
+                <ul n:errors="custom_bootstrap" class="form-errors -3u 9u$ -0u(small) 12u$(small)"></ul>
             </div>
 
             <hr />
 
             <div class="row">
-                <div class="-3u 9u$">
+                <div class="-3u 9u$ -0u(small) 12u$(small)">
                     <input n:name="stack" />
                     <label n:name="stack">Include _stack library</label>
                 </div>
+                <ul n:errors="stack" class="form-errors -3u 9u$ -0u(small) 12u$(small)"></ul>
             </div>
 
             <hr />
 
             <div class="align-center">
-                <button n:name="build" type="submit" class="button big icon fa-download">Download custom build</button>
+                <button n:name="build" type="submit" id="frm-builderForm-build" class="button big icon fa-download">Download custom build</button>
             </div>
         </form>
     </section>
@@ -133,6 +144,7 @@
     <div id="dz-cover"></div>
 
     <script type="application/json" id="package-dependencies">{$dependencies}</script>
+    <script type="application/json" id="package-info">{$packageInfo}</script>
 
     <script type="application/javascript">
         _stack.push([function (DOM, Neon, DropZone, di) {
@@ -141,9 +153,11 @@
         	di.getService('page').getSnippet('frm-builderForm')
                 .setup(function(form) {
                     var frm = di.getService('formLocator').getForm(form),
-                        dependencies = DOM.getById('package-dependencies');
+                        dependencies = DOM.getById('package-dependencies'),
+                        packageInfo = DOM.getById('package-info');
 
                     dependencies = JSON.parse(dependencies.text || dependencies.textContent || dependencies.innerHTML);
+                    packageInfo = JSON.parse(packageInfo.text || packageInfo.textContent || packageInfo.innerHTML);
 
                     tc = di.create('tabContext');
                     tc.addFromContainer(frm.getElement());
@@ -208,6 +222,33 @@
 
                     dz.on('body-leave drop', function () {
                         DOM.toggleClass('dz-cover', 'visible', false);
+                    });
+
+                    DOM.addListener('frm-builderForm-components', 'click', function (evt) {
+                        if (DOM.hasClass(evt.target, 'button-info')) {
+                        	evt.preventDefault();
+
+                        	var pkg = DOM.getData(evt.target, 'package').split(/\./),
+                                msg = packageInfo[pkg[0]][pkg[1]];
+
+                        	if (typeof msg === 'string') {
+                        		msg = packageInfo[pkg[0]][pkg[1]] = di.getService('flashes').create(msg, { rich: true, dismiss: false, target: evt.target, placement: 'rightOf', classes: 'form-tooltip' });
+
+                        		msg.on('shown', function () {
+                                    function hide(evt) {
+                                        if (evt.target !== msg.getElement() && !DOM.contains(msg.getElement(), evt.target)) {
+                                            DOM.removeListener(document, 'mousedown', hide);
+                                            msg.hide();
+                                        }
+                                    }
+
+                                    DOM.addListener(document, 'mousedown', hide);
+                                });
+                            }
+
+                            msg.show();
+
+                        }
                     });
 
                     DOM.addListener(frm.getElement('bootstrap_options'), 'keydown', function (evt) {
@@ -333,7 +374,7 @@
                     }
                 })
                 .teardown(function () {
-                    tc && di.getService('keymap').pop(tc);
+                    tc && di.getService('keymapManager').pop(tc);
                     dz && dz.destroy();
                     bcl && bcl.destroy();
                     ecl && ecl.destroy();
