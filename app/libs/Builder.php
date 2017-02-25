@@ -34,8 +34,8 @@ class Builder {
     public function __construct(Application $application, $rootDir, $tempDir) {
         $this->application = $application;
         $this->rootDir = realpath($rootDir);
+        @mkdir($tempDir, 0755, true);
         $this->tempDir = realpath($tempDir);
-        @mkdir($this->tempDir, 0755, true);
     }
 
 
