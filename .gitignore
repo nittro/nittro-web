@@ -1,4 +1,5 @@
 app/config/config.local.neon
 vendor/
-bower_components/
 node_modules/
+builder/temp/
+builder/node_modules/
