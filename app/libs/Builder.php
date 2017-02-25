@@ -44,6 +44,8 @@ class Builder {
         $config = $this->prepareConfig($tempDir, $config);
         file_put_contents($tempDir . '/nittro.json', json_encode($config, JSON_PRETTY_PRINT));
 
+        set_time_limit(0);
+
         $builder = new ProcessBuilder();
         $builder->setPrefix($this->rootDir . '/node_modules/.bin/gulp');
         $builder->setWorkingDirectory($this->rootDir);
