@@ -49,8 +49,6 @@ class Builder {
         $builder = new ProcessBuilder();
         $builder->setPrefix($this->rootDir . '/node_modules/.bin/gulp');
         $builder->setWorkingDirectory($this->rootDir);
-        $builder->add('--gulpfile');
-        $builder->add('gulpfile-builder.js');
         $builder->add('--job-dir');
         $builder->add($tempDir);
 

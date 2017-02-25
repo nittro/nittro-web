@@ -25,4 +25,4 @@ services:
     router: App\RouterFactory::createRouter(%productionMode%)
     wiki: App\Libs\Wiki(wikiPath: "%reposPath%/wiki")
     parsedown: App\Libs\Parsedown()
-    builder: App\Libs\Builder(rootDir: %appDir%/.., tempDir: %tempDir%/builder)
+    builder: App\Libs\Builder(rootDir: %appDir%/../builder, tempDir: %appDir%/../builder/temp)
