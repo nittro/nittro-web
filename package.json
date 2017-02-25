@@ -15,7 +15,21 @@
     "gulp-util": "^3.0.8",
     "gulp-zip": "^4.0.0",
     "minimist": "^1.2.0",
-    "nittro": "^2.0.0-rc.5",
-    "nittro-extras": "^2.0.0-rc.1"
+    "nittro-core": "^2.0.0",
+    "nittro-datetime": "^2.0.0",
+    "nittro-neon": "^2.0.0",
+    "nittro-di": "^2.0.0",
+    "nittro-ajax": "^2.0.0",
+    "nittro-forms": "^2.0.0",
+    "nittro-page": "^2.0.0",
+    "nittro-flashes": "^2.0.0",
+    "nittro-routing": "^2.0.0",
+    "nittro-extras-checklist": "^2.0.0",
+    "nittro-extras-confirm": "^2.0.0",
+    "nittro-extras-dialogs": "^2.0.1",
+    "nittro-extras-dropzone": "^2.0.0",
+    "nittro-extras-keymap": "^2.0.0",
+    "nittro-extras-paginator": "^2.0.0",
+    "nittro-extras-storage": "^2.0.0"
   }
 }
