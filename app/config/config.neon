@@ -3,6 +3,9 @@
 
 parameters:
     reposPath: "%appDir%/../repos"
+    builds:
+        nittro-essentials: 2.0.0
+        nittro-full: 2.0.0
 
 php:
     date.timezone: Europe/Prague

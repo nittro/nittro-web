@@ -57,6 +57,7 @@ class HomepagePresenter extends BasePresenter {
     public function renderDownload() {
         $this->title = 'Download';
         $this->tab = 'download';
+        $this->template->builds = $this->context->parameters['builds'];
         $this->template->dependencies = $this->builder->getDependencies();
         $this->template->packageInfo = $this->packageInfo;
     }
