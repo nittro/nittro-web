@@ -29,6 +29,14 @@
                 </p>
             </section>
         </div>
+
+        <div>
+            <p>
+                Note that you don't need to load <code>netteForms.js</code> or <code>nette.ajax.js</code> or jQuery
+                or any other library to use these packages - <code>netteForms.js</code> is already bundled and <code>nette.ajax.js</code>
+                is considered a direct conflict with Nittro as they both provide the same core functionality.
+            </p>
+        </div>
     </section>
 
     <section>
@@ -163,6 +171,9 @@
                     tc.addFromContainer(frm.getElement());
                     di.getService('keymapManager').push(tc);
 
+                    DOM.addListener('frm-builderForm-vendor-js', 'change', warnConflictingPackages);
+                    DOM.addListener('frm-builderForm-libraries-js', 'change', warnConflictingPackages);
+
                     bcl = di.create('checkList', [{
                         container: 'frm-builderForm-base-container'
                     }]);
@@ -284,6 +295,25 @@
                         }
                     });
 
+                    function warnConflictingPackages(evt) {
+                    	if (evt.target.files && evt.target.files.length) {
+                    		for (var i = 0; i < evt.target.files.length; i++) {
+                    			if (evt.target.files.item(i).name.match(/^nette-?forms(\.min)?\.js$/i)) {
+                    				frm.trigger('error', {
+                    					element: evt.target,
+                                        message: 'You don\'t need to add the ' + evt.target.files.item(i).name
+                                            + ' asset, it\'s bundled automatically if you include the Forms component'
+                                    });
+                                } else if (evt.target.files.item(i).name.match(/^nette\.ajax\.js$/i)) {
+                                    frm.trigger('error', {
+                                        element: evt.target,
+                                        message: 'Unless you\'re doing something very weird, ' + evt.target.files.item(i).name
+                                            + ' is a direct conflict with Nittro and shouldn\'t be included in your build'
+                                    });
+                                }
+                            }
+                        }
+                    }
 
                     function updateBootstrapOptions() {
                         var val = frm.getElement('bootstrap').value;
