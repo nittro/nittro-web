@@ -4,7 +4,7 @@
     <section>
         <h2>Option 1: Pick a prebuilt package</h2>
 
-        <div class="features">
+        <div class="features" id="download-prebuilt">
             <section>
                 <span class="icon major fa-code"></span>
                 <h3>Essentials</h3>
@@ -158,6 +158,15 @@
         _stack.push([function (DOM, Neon, DropZone, di) {
         	var tc, dz, bcl, ecl;
 
+        	DOM.addListener('download-prebuilt', 'click', function (evt) {
+                var link = DOM.closest(evt.target, 'a'),
+                    m = link ? /\/nittro-([^-]+).+\.zip$/.exec(link.href) : null;
+
+                if (m) {
+                    ga('send', 'event', 'Download', m[1]);
+                }
+            });
+
         	di.getService('page').getSnippet('frm-builderForm')
                 .setup(function(form) {
                     var frm = di.getService('formLocator').getForm(form),
@@ -291,8 +300,12 @@
                                     element: elem,
                                     message: 'Error parsing NEON: ' + e.message
                                 });
+
+                                return;
                             }
                         }
+
+                        ga('send', 'event', 'Download', 'custom');
                     });
 
                     function warnConflictingPackages(evt) {
