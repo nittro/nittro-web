@@ -39,18 +39,6 @@
             ga('create', 'UA-92997646-1', 'auto');
             ga('send', 'pageview');
 
-            window._stack.push(function(di, Utils) {
-            	di.getService('history').on('savestate popstate', function (evt) {
-            		if (!evt.data.replace) {
-            			ga('set', {
-                            page: Utils.Url.from(evt.data.url).setHash(null).toLocal(),
-                            title: evt.data.title
-            			});
-
-                        ga('send', 'pageview');
-                    }
-                });
-            });
         </script>
     </head>
 
