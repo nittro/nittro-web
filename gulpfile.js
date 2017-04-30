@@ -10,11 +10,13 @@ var gulp = require('gulp'),
 var builder = new nittro.Builder({
     vendor: {
         js: [
-            'assets/js/highlight.pack.js'
+            'assets/js/highlight.pack.js',
+            'assets/js/cookie-policy.js'
         ],
         css: [
             'assets/css/hljs/darkula.css',
-            'assets/css/font-awesome.min.css'
+            'assets/css/font-awesome.min.css',
+            'assets/css/cookie-policy.less'
         ]
     },
     base: {
