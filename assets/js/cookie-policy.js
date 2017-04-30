@@ -6,7 +6,7 @@
 
     var i18n = {
         en: {
-            main: 'We use cookies to give you the best online experience. By using our website you agree to our use of cookies in accordance with our cookie policy.',
+            main: 'This site uses cookies to provide services, customize ads, and analyze traffic. By using this site you agree to this.',
             moreInfo: 'Learn more',
             acknowledged: 'I understand'
         },
