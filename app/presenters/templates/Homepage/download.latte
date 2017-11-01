@@ -146,6 +146,7 @@
             <div class="align-center">
                 <button n:name="build" type="submit" id="frm-builderForm-build" class="button big icon fa-download">Download custom build</button>
             </div>
+
         </form>
     </section>
 
@@ -411,7 +412,7 @@
                             config.bootstrap = 'none';
                         }
 
-                        frm.setValues(config, true);
+                        frm.setValues(config);
                         updateBootstrapOptions();
                         checkDependencies();
                     }
