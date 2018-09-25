@@ -3,7 +3,6 @@
 
 namespace App\Libs;
 
-
 use Nette\Application\Application;
 use Nette\FileNotFoundException;
 use Nette\Http\FileUpload;
@@ -11,7 +10,7 @@ use Nette\Neon\Neon;
 use Nette\Utils\Finder;
 use Nette\Utils\Random;
 use Symfony\Component\Process\Process;
-use Symfony\Component\Process\ProcessBuilder;
+
 
 class Builder {
 
@@ -24,6 +23,9 @@ class Builder {
     /** @var string */
     private $tempDir;
 
+    /** @var string */
+    private $path;
+
     /** @var array */
     private $dependencies = null;
 
@@ -31,12 +33,14 @@ class Builder {
      * @param Application $application
      * @param string $rootDir
      * @param string $tempDir
+     * @param string $path
      */
-    public function __construct(Application $application, $rootDir, $tempDir) {
+    public function __construct(Application $application, $rootDir, $tempDir, $path = null) {
         $this->application = $application;
         $this->rootDir = realpath($rootDir);
         @mkdir($tempDir, 0755, true);
         $this->tempDir = realpath($tempDir);
+        $this->path = $path;
     }
 
 
@@ -52,8 +56,12 @@ class Builder {
             $this->rootDir
         );
 
-        $process->inheritEnvironmentVariables();
-        $process->setEnv(['PATH' => '/usr/local/bin:' . getenv('PATH')]);
+        if ($this->path) {
+            $process->setEnv([
+                'PATH' => rtrim($this->path . ':' . getenv('PATH'), ':'),
+            ]);
+        }
+
         $process->mustRun();
 
         return basename($tempDir);

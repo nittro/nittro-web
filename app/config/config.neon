@@ -2,7 +2,7 @@
 # https://nette.org/security-warning
 
 parameters:
-    reposPath: "%appDir%/../repos"
+    PATH: null
     builds:
         nittro-essentials: 2.0.0
         nittro-full: 2.0.0
@@ -27,4 +27,4 @@ latte:
 
 services:
     router: App\RouterFactory::createRouter(%productionMode%)
-    builder: App\Libs\Builder(rootDir: %appDir%/../builder, tempDir: %appDir%/../builder/temp)
+    builder: App\Libs\Builder(rootDir: %appDir%/../builder, tempDir: %appDir%/../builder/temp, path: %PATH%)
