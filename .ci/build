@@ -10,4 +10,5 @@ node_modules/.bin/gulp
 
 chmod -R go-rwx .
 chmod g+rx .
-find ./public -type d -exec chmod g+rx '{}' \;
+chmod -R g+r ./public
+find ./public -type d -exec chmod g+x '{}' \;

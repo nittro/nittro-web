@@ -12,8 +12,6 @@ rsync -rzpEl -e "ssh -i '$DEPLOY_KEY_PATH'" --exclude=.git ./ "$DEPLOY_USER@$DEP
 ssh -T -i "$DEPLOY_KEY_PATH" "$DEPLOY_USER@$DEPLOY_SERVER" << EOT
 set -eux
 
-chmod go+rx "$TARGET_DIR_VERSIONED"
-
 rm -rf "$TARGET_DIR_VERSIONED/log"
 rm -rf "$TARGET_DIR_VERSIONED/temp/sessions"
 rm -rf "$TARGET_DIR_VERSIONED/public/releases"
