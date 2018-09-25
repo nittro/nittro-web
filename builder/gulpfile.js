@@ -3,6 +3,7 @@ const gulp = require('gulp'),
     minimist = require('minimist'),
     log = require('fancy-log'),
     fs = require('fs'),
+    path = require('path'),
     filter = require('gulp-filter'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
@@ -15,17 +16,12 @@ const gulp = require('gulp'),
     zip = require('gulp-zip');
 
 
+const rootDir = path.dirname(fs.realpathSync(__dirname + '/node_modules'));
 const jobDir = resolveJobDir();
 const config = JSON.parse(fs.readFileSync(jobDir + '/nittro.json'));
+process.chdir(rootDir);
 
-fixPaths('vendor.js');
-fixPaths('vendor.css');
-fixPaths('libraries.js');
-fixPaths('libraries.css');
-
-if (typeof config.bootstrap === 'string') {
-    config.bootstrap = jobDir + '/' + config.bootstrap;
-}
+config.baseDir = jobDir;
 
 const builder = new nittro.Builder(config);
 
@@ -54,12 +50,7 @@ function resolveJobDir () {
         string: 'job-dir'
     });
 
-    if (process.cwd() !== __dirname) {
-        log.error('Invalid working directory');
-        process.exit(1);
-    }
-
-    let jobDir = options['job-dir'];
+    const jobDir = options['job-dir'];
 
     if (!jobDir) {
         log.error('Job dir not specified');
@@ -69,7 +60,7 @@ function resolveJobDir () {
         process.exit(1);
     }
 
-    return jobDir;
+    return path.relative(rootDir, jobDir);
 }
 
 function exclude(pattern, ...queue) {
@@ -109,27 +100,8 @@ function createTaskQueue(outputFile, builder) {
     return queue;
 }
 
-function fixPaths(key) {
-    key = key.split(/\./g);
-    let c = config;
-
-    for (let i = 0; i < key.length; i++) {
-        if (c[key[i]]) {
-            c = c[key[i]];
-        } else {
-            return;
-        }
-    }
-
-    if (Array.isArray(c)) {
-        c.forEach(function (item, i, c) {
-            c[i] = jobDir + '/' + item;
-        });
-    }
-}
-
 function fixMapPath(path) {
-    if (path.substr(0, jobDir.length) === jobDir) {
+    if (path.substr(0, jobDir.length + 1) === jobDir + '/') {
         return path.substr(jobDir.length + 1);
     } else {
         return path.replace(/^node_modules\//, '');
