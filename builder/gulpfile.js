@@ -64,18 +64,7 @@ function resolveJobDir () {
     if (!jobDir) {
         log.error('Job dir not specified');
         process.exit(1);
-    } else if (jobDir.charAt(0) === '/') {
-        if (jobDir.substr(0, __dirname.length + 1) === __dirname + '/') {
-            jobDir = jobDir.substr(__dirname.length + 1);
-        } else {
-            log.error(`Invalid job dir: outside project directory`);
-            process.exit(1);
-        }
-    }
-
-    jobDir = jobDir.replace(/\/$/, '');
-
-    if (!fs.existsSync(jobDir + '/nittro.json')) {
+    } else if (!fs.existsSync(jobDir + '/nittro.json')) {
         log.error('Job config file not found');
         process.exit(1);
     }
