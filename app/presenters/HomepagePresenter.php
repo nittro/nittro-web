@@ -39,8 +39,13 @@ class HomepagePresenter extends BasePresenter {
     public function actionBuild($id) {
         try {
             $archivePath = $this->builder->getArchivePath($id);
-            $this->sendResponse(new FileResponse($archivePath));
 
+            $this->sendResponse(new FileResponse(
+                $archivePath,
+                sprintf('nittro-custom-%s.zip', date('Y-m-d--H-i-s')),
+                'application/zip',
+                true
+            ));
         } catch (FileNotFoundException $e) {
             $this->error();
         }
@@ -79,11 +84,13 @@ class HomepagePresenter extends BasePresenter {
             return;
         }
 
-        $this->disallowAjax()->redirect('build', ['id' => $buildId]);
+        $this->postGet('build', ['id' => $buildId]);
+        $this->redrawControl('buildResult');
+        $this->template->buildId = $buildId;
     }
 
     public function doRedrawForm() {
-        $this->setRedrawDefault(true);
+        $this->redrawControl('content');
     }
 
     public function createComponentBuilderForm() {

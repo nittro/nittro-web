@@ -42,8 +42,8 @@
     <section>
         <h2>Option 2: Build a custom package</h2>
 
-        <form n:name="builderForm" data-transition="#frm-builderForm-build" data-reset="false">
-            <ul n:formErrors class="form-errors"></ul>
+        <form n:name="builderForm" data-transition="#{input.id builderForm-build}, #{snippet.id buildResult}" data-history="false" data-reset="false">
+            <ul n:errors.form class="form-errors"></ul>
 
             <hr />
 
@@ -144,10 +144,29 @@
             <hr />
 
             <div class="align-center">
-                <button n:name="build" type="submit" id="frm-builderForm-build" class="button big icon fa-download">Download custom build</button>
+                <button n:name="build" type="submit" class="button big icon fa-download">Download custom build</button>
             </div>
 
         </form>
+
+        <div n:snippet="buildResult" class="align-center nittro-transition-slide">
+            {ifset $buildId}
+                <hr />
+                <h3>Your build is ready!</h3>
+                <p id="download-hint">
+                    The download should begin automatically any second now.
+                    If it doesn't, you can try to nudge it by clicking
+                    <a n:href="build, id => $buildId" data-ajax="false">here</a>.
+                </p>
+
+                <script type="application/javascript">
+                    (function() {
+                        window.location.href = {link build, id => $buildId};
+                        document.getElementById('download-hint').textContent = 'Download is starting...';
+                    })();
+                </script>
+            {/ifset}
+        </div>
     </section>
 
     <div id="dz-cover"></div>
@@ -168,7 +187,7 @@
                 }
             });
 
-        	di.getService('page').getSnippet('frm-builderForm')
+        	di.getService('page').getSnippet({form.id builderForm})
                 .setup(function(form) {
                     var frm = di.getService('formLocator').getForm(form),
                         dependencies = DOM.getById('package-dependencies'),
@@ -245,32 +264,29 @@
                         DOM.toggleClass('dz-cover', 'visible', false);
                     });
 
-                    DOM.addListener('frm-builderForm-components', 'click', function (evt) {
-                        if (DOM.hasClass(evt.target, 'button-info')) {
-                        	evt.preventDefault();
+                    DOM.addListener('frm-builderForm-components', 'click', DOM.delegate('.button-info', function (evt, btn) {
+                        evt.preventDefault();
 
-                        	var pkg = DOM.getData(evt.target, 'package').split(/\./),
-                                msg = packageInfo[pkg[0]][pkg[1]];
+                        var pkg = DOM.getData(btn, 'package').split(/\./),
+                            msg = packageInfo[pkg[0]][pkg[1]];
 
-                        	if (typeof msg === 'string') {
-                        		msg = packageInfo[pkg[0]][pkg[1]] = di.getService('flashes').create(msg, { rich: true, dismiss: false, target: evt.target, placement: 'rightOf', classes: 'form-tooltip' });
+                        if (typeof msg === 'string') {
+                            msg = packageInfo[pkg[0]][pkg[1]] = di.getService('flashes').create(msg, { rich: true, dismiss: false, target: btn, placement: 'rightOf', classes: 'form-tooltip' });
 
-                        		msg.on('shown', function () {
-                                    function hide(evt) {
-                                        if (evt.target !== msg.getElement() && !DOM.contains(msg.getElement(), evt.target)) {
-                                            DOM.removeListener(document, 'mousedown', hide);
-                                            msg.hide();
-                                        }
+                            msg.on('shown', function () {
+                                function hide(evt) {
+                                    if (evt.target !== msg.getElement() && !DOM.contains(msg.getElement(), evt.target)) {
+                                        DOM.removeListener(document, 'mousedown', hide);
+                                        msg.hide();
                                     }
+                                }
 
-                                    DOM.addListener(document, 'mousedown', hide);
-                                });
-                            }
-
-                            msg.show();
-
+                                DOM.addListener(document, 'mousedown', hide);
+                            });
                         }
-                    });
+
+                        msg.show();
+                    }));
 
                     DOM.addListener(frm.getElement('bootstrap_options'), 'keydown', function (evt) {
                     	var val = evt.target.value,

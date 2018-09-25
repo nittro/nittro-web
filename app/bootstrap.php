@@ -16,12 +16,6 @@ $configurator->createRobotLoader()
 $configurator->addConfig(__DIR__ . '/config/config.neon');
 $configurator->addConfig(__DIR__ . '/config/config.local.neon');
 
-Tracy\Debugger::setLogger(new Beetle\Tracy\Logger(__DIR__ . '/../log', [
-    'consolePath' => '/srv/http/me/monokl/bugs/bin/console',
-    'userId' => 2,
-    'projectId' => 4,
-]));
-
 $container = $configurator->createContainer();
 
 return $container;

@@ -10,6 +10,7 @@ use Nette\Http\FileUpload;
 use Nette\Neon\Neon;
 use Nette\Utils\Finder;
 use Nette\Utils\Random;
+use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessBuilder;
 
 class Builder {
@@ -46,13 +47,14 @@ class Builder {
 
         set_time_limit(0);
 
-        $builder = new ProcessBuilder();
-        $builder->setPrefix($this->rootDir . '/node_modules/.bin/gulp');
-        $builder->setWorkingDirectory($this->rootDir);
-        $builder->add('--job-dir');
-        $builder->add($tempDir);
+        $process = new Process(
+            $this->rootDir . '/node_modules/.bin/gulp --job-dir ' . escapeshellarg($tempDir),
+            $this->rootDir
+        );
 
-        $builder->getProcess()->mustRun();
+        $process->inheritEnvironmentVariables();
+        $process->setEnv(['PATH' => '/usr/local/bin:' . getenv('PATH')]);
+        $process->mustRun();
 
         return basename($tempDir);
     }

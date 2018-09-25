@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -eux
+
+PACKAGE_NAME="$( php -r 'echo json_decode(file_get_contents("package.json"))->name;' )"
+
+npm publish
+
+ssh -T -i "$DEPLOY_KEY_PATH" "$DEPLOY_USER@$DEPLOY_SERVER" << EOT
+set -eux
+
+cd "$DEPLOY_PATH/current/builder"
+npm update "$PACKAGE_NAME" --depth 9999
+
+EOT

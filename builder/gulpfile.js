@@ -1,50 +1,130 @@
-var gulp = require('gulp'),
-    gutil = require('gulp-util'),
+const gulp = require('gulp'),
+    pump = require('pump'),
+    minimist = require('minimist'),
+    log = require('fancy-log'),
     fs = require('fs'),
+    filter = require('gulp-filter'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
     less = require('gulp-less'),
     postcss = require('gulp-postcss'),
     autoprefixer = require('autoprefixer'),
+    cssnano = require('cssnano'),
     nittro = require('gulp-nittro'),
     sourcemaps = require('gulp-sourcemaps'),
-    minimist = require('minimist'),
     zip = require('gulp-zip');
 
 
-var options = minimist(process.argv.slice(2), {
-    string: 'job-dir'
+const jobDir = resolveJobDir();
+const config = JSON.parse(fs.readFileSync(jobDir + '/nittro.json'));
+
+fixPaths('vendor.js');
+fixPaths('vendor.css');
+fixPaths('libraries.js');
+fixPaths('libraries.css');
+
+if (typeof config.bootstrap === 'string') {
+    config.bootstrap = jobDir + '/' + config.bootstrap;
+}
+
+const builder = new nittro.Builder(config);
+
+gulp.task('js', function (cb) {
+    pump(createTaskQueue(jobDir + '/dist/nittro.min.js', builder), cb);
 });
 
+gulp.task('css', function (cb) {
+    pump(createTaskQueue(jobDir + '/dist/nittro.min.css', builder), cb);
+});
 
-var jobDir = options['job-dir'];
+gulp.task('zip', function (cb) {
+    pump([
+        gulp.src([jobDir + '/dist/**', jobDir + '/nittro.json']),
+        zip('nittro.zip'),
+        gulp.dest(jobDir),
+    ], cb);
+});
 
-if (!jobDir) {
-    gutil.log('Job dir not specified');
-    process.exit(1);
-} else if (jobDir.charAt(0) === '/') {
-    if (jobDir.substr(0, __dirname.length + 1) === __dirname + '/') {
-        jobDir = jobDir.substr(__dirname.length + 1);
-    } else {
-        gutil.log('Invalid job dir: outside project directory');
+gulp.task('default', gulp.series(gulp.parallel('js', 'css'), 'zip'));
+
+
+
+function resolveJobDir () {
+    const options = minimist(process.argv.slice(2), {
+        string: 'job-dir'
+    });
+
+    if (process.cwd() !== __dirname) {
+        log.error('Invalid working directory');
         process.exit(1);
     }
+
+    let jobDir = options['job-dir'];
+
+    if (!jobDir) {
+        log.error('Job dir not specified');
+        process.exit(1);
+    } else if (jobDir.charAt(0) === '/') {
+        if (jobDir.substr(0, __dirname.length + 1) === __dirname + '/') {
+            jobDir = jobDir.substr(__dirname.length + 1);
+        } else {
+            log.error(`Invalid job dir: outside project directory`);
+            process.exit(1);
+        }
+    }
+
+    jobDir = jobDir.replace(/\/$/, '');
+
+    if (!fs.existsSync(jobDir + '/nittro.json')) {
+        log.error('Job config file not found');
+        process.exit(1);
+    }
+
+    return jobDir;
 }
 
-jobDir = jobDir.replace(/\/$/, '');
-
-if (!fs.existsSync(jobDir + '/nittro.json')) {
-    gutil.log('Job config file not found');
-    process.exit(1);
+function exclude(pattern, ...queue) {
+    const f = filter(file => !pattern.test(file.path), {restore: true});
+    queue.unshift(f);
+    queue.push(f.restore);
+    return queue;
 }
 
-var config = JSON.parse(fs.readFileSync(jobDir + '/nittro.json'));
+function createTaskQueue(outputFile, builder) {
+    const m = /^(.+?)\/([^\/]+?\.(js|css))$/.exec(outputFile),
+        path = m[1],
+        file = m[2],
+        type = m[3],
+        queue = [
+            nittro(type, builder),
+            sourcemaps.init({loadMaps: true})
+        ];
+
+    if (type === 'js') {
+        queue.push(... exclude(/\.(min|pack)\.[^.]+$/,
+            uglify({compress: true, mangle: false})
+        ));
+    } else {
+        queue.push(... exclude(/\.(min|pack)\.[^.]+$/,
+            ... exclude(/\.css$/, less()),
+            postcss([ autoprefixer(), cssnano() ])
+        ));
+    }
+
+    queue.push(
+        concat(file),
+        sourcemaps.write('.', { mapSources: fixMapPath }),
+        gulp.dest(path)
+    );
+
+    return queue;
+}
 
 function fixPaths(key) {
     key = key.split(/\./g);
-    var c = config;
+    let c = config;
 
-    for (var i = 0; i < key.length; i++) {
+    for (let i = 0; i < key.length; i++) {
         if (c[key[i]]) {
             c = c[key[i]];
         } else {
@@ -59,48 +139,10 @@ function fixPaths(key) {
     }
 }
 
-function fixMapPath(sourcePath, file) {
-    if (sourcePath.substr(0, jobDir.length) === jobDir) {
-        return sourcePath.substr(jobDir.length + 1);
+function fixMapPath(path) {
+    if (path.substr(0, jobDir.length) === jobDir) {
+        return path.substr(jobDir.length + 1);
     } else {
-        return sourcePath.replace(/^node_modules\//, '');
+        return path.replace(/^node_modules\//, '');
     }
 }
-
-fixPaths('vendor.js');
-fixPaths('vendor.css');
-fixPaths('libraries.js');
-fixPaths('libraries.css');
-
-if (typeof config.bootstrap === 'string') {
-    config.bootstrap = jobDir + '/' + config.bootstrap;
-}
-
-var builder = new nittro.Builder(config);
-
-gulp.task('js', function () {
-    return nittro('js', builder)
-        .pipe(sourcemaps.init({loadMaps: true}))
-        .pipe(concat('nittro.min.js'))
-        .pipe(uglify({mangle: false, compress: true}))
-        .pipe(sourcemaps.write('.', { mapSources: fixMapPath }))
-        .pipe(gulp.dest(jobDir + '/dist'));
-});
-
-gulp.task('css', function () {
-    return nittro('css', builder)
-        .pipe(sourcemaps.init({loadMaps: true}))
-        .pipe(less({compress: true}))
-        .pipe(postcss([ autoprefixer() ]))
-        .pipe(concat('nittro.min.css'))
-        .pipe(sourcemaps.write('.', { mapSources: fixMapPath }))
-        .pipe(gulp.dest(jobDir + '/dist'));
-});
-
-gulp.task('zip', ['js', 'css'], function () {
-    return gulp.src([jobDir + '/dist/**', jobDir + '/nittro.json'])
-        .pipe(zip('nittro.zip'))
-        .pipe(gulp.dest(jobDir));
-});
-
-gulp.task('default', ['zip']);

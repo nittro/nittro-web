@@ -1,5 +1,10 @@
-app/config/config.local.neon
-vendor/
-node_modules/
-builder/temp/
-builder/node_modules/
+/app/config/config.local.neon
+/vendor
+/node_modules
+/temp
+/log
+/public/css
+/public/js
+/public/releases
+/builder/temp
+/builder/node_modules

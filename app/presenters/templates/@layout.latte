@@ -7,28 +7,28 @@
         <link rel="shortcut icon" href="{$basePath}/favicon.ico" />
 
         <link rel="icon" type="image/x-icon" sizes="16x16 32x32" href="{$basePath}/favicon.ico" />
-        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{$basePath}/_clip/icons/nittro-152.png" />
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{$basePath}/_clip/icons/nittro-144.png" />
-        <link rel="apple-touch-icon-precomposed" sizes="120x120" href="{$basePath}/_clip/icons/nittro-120.png" />
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{$basePath}/_clip/icons/nittro-114.png" />
-        <link rel="apple-touch-icon-precomposed" sizes="180x180" href="{$basePath}/_clip/icons/nittro-180.png" />
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{$basePath}/_clip/icons/nittro-72.png" />
-        <link rel="apple-touch-icon-precomposed" href="{$basePath}/_clip/icons/nittro-57.png" />
-        <link rel="icon" sizes="32x32" href="{$basePath}/_clip/icons/nittro-32.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{$basePath}/images/icons/nittro-152.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{$basePath}/images/icons/nittro-144.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="120x120" href="{$basePath}/images/icons/nittro-120.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{$basePath}/images/icons/nittro-114.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="180x180" href="{$basePath}/images/icons/nittro-180.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{$basePath}/images/icons/nittro-72.png" />
+        <link rel="apple-touch-icon-precomposed" href="{$basePath}/images/icons/nittro-57.png" />
+        <link rel="icon" sizes="32x32" href="{$basePath}/images/icons/nittro-32.png" />
         <meta name="msapplication-TileColor" content="#FFFFFF" />
-        <meta name="msapplication-TileImage" content="{$basePath}/_clip/icons/nittro-144.png" />
-        <link rel="icon" sizes="192x192" href="{$basePath}/_clip/icons/nittro-192.png" />
+        <meta name="msapplication-TileImage" content="{$basePath}/images/icons/nittro-144.png" />
+        <link rel="icon" sizes="192x192" href="{$basePath}/images/icons/nittro-192.png" />
 
 
         <title>{ifset $title}{$title} | {/ifset}Nittro</title>
 
-        <!--[if lte IE 8]><script src="{$baseUrl}/_js/html5shiv.js"></script><![endif]-->
-        <link rel="stylesheet" type="text/css" href="{$baseUrl}/_css/site.min.css" />
-        <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="{$baseUrl}/_css/ie9.css" /><![endif]-->
-        <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="{$baseUrl}/_css/ie8.css" /><![endif]-->
+        <!--[if lte IE 8]><script src="{$baseUrl}/js/html5shiv.js"></script><![endif]-->
+        <link rel="stylesheet" type="text/css" href="{$baseUrl}/css/site.min.css" />
+        <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="{$baseUrl}/css/ie9.css" /><![endif]-->
+        <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="{$baseUrl}/css/ie8.css" /><![endif]-->
 
         <script type="text/javascript">window._stack = [];</script>
-        <script type="text/javascript" src="{$baseUrl}/_js/site.min.js" async defer></script>
+        <script type="text/javascript" src="{$baseUrl}/js/site.min.js" async defer></script>
 
         <script type="application/javascript">
             (function(i,s,o,g,r,a,m){ i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -45,12 +45,12 @@
     <body>
         <!-- Header -->
         <header id="header">
-            <a href="{link //Homepage:}" class="title" title="Nittro"><img src="{$basePath}/_clip/logo.svg" id="logo" alt="Nittro"></a>
+            <a href="{link //Homepage:}" class="title" title="Nittro"><img src="{$basePath}/images/logo.svg" id="logo" alt="Nittro"></a>
             <nav id="menu">
                 <ul>
-                    <li><a n:href="Homepage:" n:class="$tab === 'home' ? active, tab-home, ajax" data-transition="#snippet--content">Home</a></li>
-                    <li><a n:href="Homepage:download" n:class="$tab === 'download' ? active, tab-download, ajax" data-transition="#snippet--content">Download</a></li>
-                    {*<li><a n:href="Wiki:" n:class="$tab === 'wiki' ? active, tab-wiki, ajax" data-transition="#snippet--content">Docs</a></li>*}
+                    <li><a n:href="Homepage:" n:class="$tab === 'home' ? active, tab-home">Home</a></li>
+                    <li><a n:href="Homepage:download" n:class="$tab === 'download' ? active, tab-download">Download</a></li>
+                    <li><a href="https://github.com/nittro/nittro/wiki" data-transition="#snippet--content">Docs</a></li>
                     <li class="social"><a href="https://github.com/nittro/nittro" title="GitHub" class="fa fa-github"></a></li>
                     <li class="social"><a href="https://twitter.com/nittrojs" title="Twitter" class="fa fa-twitter"></a></li>
                 </ul>
@@ -62,7 +62,7 @@
 
             <!-- Main -->
             <section id="main" class="wrapper">
-                <div class="inner nittro-transition-slide" n:snippet="content">
+                <div class="inner nittro-transition-auto nittro-transition-slide" n:snippet="content">
                     {include content}
                 </div>
             </section>

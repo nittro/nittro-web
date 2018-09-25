@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+set -eux
+
+PACKAGE_NAME="$( php -r 'echo json_decode(file_get_contents("package.json"))->name;' )"
+PACKAGE_VERSION="$( php -r 'echo json_decode(file_get_contents("package.json"))->version;' )"
+ARCHIVE_FILENAME="$PACKAGE_NAME-$PACKAGE_VERSION.zip"
+RELEASES_DIR="$DEPLOY_PATH/shared/public/releases"
+
+# This is needed for now
+rm package-lock.json
+
+npm install
+node_modules/.bin/gulp release
+
+rsync -rzpEl -e "ssh -i '$DEPLOY_KEY_PATH'" "dist/$ARCHIVE_FILENAME" "$DEPLOY_USER@$DEPLOY_SERVER:$RELEASES_DIR/$ARCHIVE_FILENAME"
+
+ssh -T -i "$DEPLOY_KEY_PATH" "$DEPLOY_USER@$DEPLOY_SERVER" << EOT
+set -eux
+
+cd "$DEPLOY_PATH/current"
+
+php <<BUMP_VERSION_IN_CONFIG
+<?php
+
+require 'vendor/autoload.php';
+
+\$config = Nette\Neon\Neon::decode(file_get_contents('app/config/config.local.neon'));
+\$config['parameters']['builds']['$PACKAGE_NAME'] = '$PACKAGE_VERSION';
+file_put_contents('app/config/config.local.neon', Nette\Neon\Neon::encode(\$config, Nette\Neon\Neon::BLOCK));
+
+BUMP_VERSION_IN_CONFIG
+
+rm -rf temp/cache/*
+cachetool opcache:reset --fcgi=/run/php/nittro.org.sock
+
+EOT
