@@ -10,6 +10,6 @@ ssh -T -i "$DEPLOY_KEY_PATH" "$DEPLOY_USER@$DEPLOY_SERVER" << EOT
 set -eux
 
 cd "$DEPLOY_PATH/current/builder"
-npm update "$PACKAGE_NAME" --depth 9999
+npm update "$PACKAGE_NAME" --depth 3
 
 EOT
