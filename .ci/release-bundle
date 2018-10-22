@@ -22,8 +22,8 @@ php <<BUMP_VERSION_IN_CONFIG
 
 require 'vendor/autoload.php';
 
-\$config = Nette\Neon\Neon::decode(file_get_contents('app/config/config.local.neon'));
-\$config['parameters']['builds']['$PACKAGE_NAME'] = '$PACKAGE_VERSION';
+\\$config = Nette\Neon\Neon::decode(file_get_contents('app/config/config.local.neon'));
+\\$config['parameters']['builds']['$PACKAGE_NAME'] = '$PACKAGE_VERSION';
 file_put_contents('app/config/config.local.neon', Nette\Neon\Neon::encode(\$config, Nette\Neon\Neon::BLOCK));
 
 BUMP_VERSION_IN_CONFIG
