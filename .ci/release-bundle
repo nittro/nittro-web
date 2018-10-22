@@ -7,10 +7,7 @@ PACKAGE_VERSION="$( php -r 'echo json_decode(file_get_contents("package.json"))-
 ARCHIVE_FILENAME="$PACKAGE_NAME-$PACKAGE_VERSION.zip"
 RELEASES_DIR="$DEPLOY_PATH/shared/public/releases"
 
-# This is needed for now
-rm package-lock.json
-
-npm install
+npm ci
 node_modules/.bin/gulp release
 
 rsync -rzpEl -e "ssh -i '$DEPLOY_KEY_PATH'" "dist/$ARCHIVE_FILENAME" "$DEPLOY_USER@$DEPLOY_SERVER:$RELEASES_DIR/$ARCHIVE_FILENAME"

@@ -4,7 +4,7 @@ set -eux
 
 mkdir -p temp/{cache,sessions} log builder/temp
 
-npm install
+npm ci
 composer install --no-suggest --no-progress --no-dev --ignore-platform-reqs
 node_modules/.bin/gulp
 
