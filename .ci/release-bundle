@@ -17,17 +17,7 @@ set -eux
 
 cd "$DEPLOY_PATH/current"
 
-php <<BUMP_VERSION_IN_CONFIG
-<?php
-
-require 'vendor/autoload.php';
-
-\\\$config = Nette\Neon\Neon::decode(file_get_contents('app/config/config.local.neon'));
-\\\$config['parameters']['builds']['$PACKAGE_NAME'] = '$PACKAGE_VERSION';
-file_put_contents('app/config/config.local.neon', Nette\Neon\Neon::encode(\$config, Nette\Neon\Neon::BLOCK));
-
-BUMP_VERSION_IN_CONFIG
-
+php app/update-bundle-version.php "$PACKAGE_NAME" "$PACKAGE_VERSION"
 rm -rf temp/cache/*
 cachetool opcache:reset --fcgi=/run/php/nittro.org.sock
 
